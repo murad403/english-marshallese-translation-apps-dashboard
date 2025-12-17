@@ -72,15 +72,15 @@ const UserManagementTable = () => {
                 <div className="overflow-x-auto">
                     <table className="w-full rounded-xl">
                         <thead>
-                            <tr className="bg-[#E9EFFA]">
-                                <th className="px-6 py-4 text-left text-subheading text-header font-medium text-nowrap">User ID</th>
-                                <th className="px-6 py-4 text-left text-subheading text-header font-medium text-nowrap">User Name</th>
-                                <th className="px-6 py-4 text-left text-subheading text-header font-medium text-nowrap">User Email</th>
-                                <th className="px-6 py-4 text-left text-subheading text-header font-medium text-nowrap">User Phone</th>
-                                <th className="px-6 py-4 text-left text-subheading text-header font-medium text-nowrap">Joining Date</th>
-                                <th className="px-6 py-4 text-left text-subheading text-header font-medium">Status</th>
-                                <th className="px-6 py-4 text-left text-subheading text-header font-medium">Subscription</th>
-                                <th className="px-6 py-4 text-left text-subheading text-header font-medium">Action</th>
+                            <tr className="bg-[#E9EFFA] *:py-5">
+                                <th className="px-6 text-left text-subheading text-header font-medium text-nowrap">User ID</th>
+                                <th className="px-6 text-left text-subheading text-header font-medium text-nowrap">User Name</th>
+                                <th className="px-6 text-left text-subheading text-header font-medium text-nowrap">User Email</th>
+                                <th className="px-6 text-left text-subheading text-header font-medium text-nowrap">User Phone</th>
+                                <th className="px-6 text-left text-subheading text-header font-medium text-nowrap">Joining Date</th>
+                                <th className="px-6 text-left text-subheading text-header font-medium">Status</th>
+                                <th className="px-6 text-left text-subheading text-header font-medium">Subscription</th>
+                                <th className="px-6 text-left text-subheading text-header font-medium">Action</th>
                             </tr>
                         </thead>
                         <tbody>

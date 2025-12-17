@@ -117,6 +117,7 @@ const UserGrothChart = () => {
                         >
                             Year
                         </button>
+
                         <Popover open={isCalendarOpen} onOpenChange={setIsCalendarOpen}>
                             <PopoverTrigger asChild>
                                 <Button variant="ghost" size="icon" className="h-8 w-8">
