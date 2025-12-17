@@ -14,10 +14,10 @@ const AdminHeader = ({title}: {title: string}) => {
                 <h1 className='font-medium text-title md:text-heading text-subheading capitalize'>{title}</h1>
             </div>
             <div className='flex items-center gap-5'>
-                <Link className='md:text-[50px] text-[30px]'  href={'/notification'}>
+                <Link className='md:text-[30px] text-[25px]'  href={'/notification'}>
                     <IoMdNotificationsOutline />
                 </Link>
-                <Image src={profile} alt='admin' width={500} height={500} className='md:size-17.5 size-10'/>
+                <Image src={profile} alt='admin' width={500} height={500} className='md:size-14 size-10'/>
             </div>
         </div>
     )

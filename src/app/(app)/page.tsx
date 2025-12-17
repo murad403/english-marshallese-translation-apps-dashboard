@@ -1,6 +1,7 @@
 import AdminHeader from '@/components/shared/AdminHeader'
 import Stats from './dashboard/Stats'
 import UserGrothChart from './dashboard/UserGrothChart'
+import RecentActivityTable from './dashboard/RecentActivityTable'
 
 const page = () => {
   return (
@@ -12,7 +13,7 @@ const page = () => {
           <UserGrothChart></UserGrothChart>
         </div>
         <div className='w-full md:w-1/3'>
-
+          <RecentActivityTable></RecentActivityTable>
         </div>
       </div>
     </div>

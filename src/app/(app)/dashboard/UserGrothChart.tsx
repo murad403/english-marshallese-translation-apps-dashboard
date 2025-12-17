@@ -93,10 +93,10 @@ const UserGrothChart = () => {
         <Card className="w-full">
             <CardContent className="p-4 sm:p-6">
                 {/* Header */}
-                <div className="md:mb-10 mb-5 pb-5 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-[#BCCCEE]">
+                <div className="md:mb-10 pb-5 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-[#BCCCEE]">
                     <h2 className="text-normal font-semibold text-header">User Growth ({total.toLocaleString()})</h2>
 
-                    <div className="flex flex-wrap items-center gap-2">
+                    <div className="flex flex-wrap items-center gap-4">
                         <button
                             onClick={() => handleFilterChange("month")}
                             className={
