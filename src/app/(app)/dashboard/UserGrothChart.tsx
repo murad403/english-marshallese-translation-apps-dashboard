@@ -1,5 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
-
 import { useState } from "react"
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts"
 import { Card, CardContent } from "@/components/ui/card"
@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { CalendarIcon } from "lucide-react"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Calendar } from "@/components/ui/calendar"
+
 
 // Type definitions for API integration
 export interface UserGrowthData {
@@ -65,8 +66,8 @@ const CustomDot = (props: any) => {
     if (index === Math.floor(dataLength / 2)) {
         return (
             <g>
-                <circle cx={cx} cy={cy} r={6} fill="white" stroke="#3b82f6" strokeWidth={3} />
-                <circle cx={cx} cy={cy} r={4} fill="#f97316" />
+                <circle cx={cx} cy={cy} r={6} fill="white" stroke="#FFFFFF" strokeWidth={5} />
+                <circle cx={cx} cy={cy} r={4} fill="#FEA41D" strokeWidth={10}/>
             </g>
         )
     }
@@ -77,48 +78,45 @@ const UserGrothChart = () => {
     const [filter, setFilter] = useState<"month" | "year">("month")
     const [date, setDate] = useState<Date | undefined>(new Date())
     const [isCalendarOpen, setIsCalendarOpen] = useState(false)
+    console.log(filter)
 
     // Use provided data or fallback to sample data
-    const chartData = data || (filter === "month" ? sampleMonthData : sampleYearData)
-    const total = totalUsers || 2500
+    const chartData = (filter === "month" ? sampleMonthData : sampleYearData)
+    const total = 2500
 
     const handleFilterChange = (newFilter: "month" | "year") => {
         setFilter(newFilter)
-        onFilterChange?.(newFilter)
+        // onFilterChange?.(newFilter)
     }
 
     return (
-        <Card className="w-full border-2 border-blue-500 shadow-lg">
+        <Card className="w-full">
             <CardContent className="p-4 sm:p-6">
                 {/* Header */}
-                <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                    <h2 className="text-base font-semibold text-foreground sm:text-lg">User Growth ({total.toLocaleString()})</h2>
+                <div className="md:mb-10 mb-5 pb-5 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-[#BCCCEE]">
+                    <h2 className="text-normal font-semibold text-header">User Growth ({total.toLocaleString()})</h2>
 
                     <div className="flex flex-wrap items-center gap-2">
-                        <Button
-                            variant={filter === "month" ? "default" : "ghost"}
-                            size="sm"
+                        <button
                             onClick={() => handleFilterChange("month")}
                             className={
                                 filter === "month"
-                                    ? "bg-blue-600 text-white hover:bg-blue-700"
-                                    : "text-muted-foreground hover:text-foreground"
+                                    ? "border-b border-[#BCCCEE] text-common"
+                                    : ""
                             }
                         >
                             Month
-                        </Button>
-                        <Button
-                            variant={filter === "year" ? "default" : "ghost"}
-                            size="sm"
+                        </button>
+                        <button
                             onClick={() => handleFilterChange("year")}
                             className={
                                 filter === "year"
-                                    ? "bg-blue-600 text-white hover:bg-blue-700"
-                                    : "text-muted-foreground hover:text-foreground"
+                                    ? "border-b border-[#BCCCEE] text-common"
+                                    : ""
                             }
                         >
                             Year
-                        </Button>
+                        </button>
                         <Popover open={isCalendarOpen} onOpenChange={setIsCalendarOpen}>
                             <PopoverTrigger asChild>
                                 <Button variant="ghost" size="icon" className="h-8 w-8">
@@ -141,9 +139,9 @@ const UserGrothChart = () => {
                 </div>
 
                 {/* Chart */}
-                <div className="h-75 w-full border-2 border-dashed border-blue-400 sm:h-87.5 lg:h-100">
+                <div className="h-75 w-full sm:h-87.5 lg:h-100">
                     <ResponsiveContainer width="100%" height="100%">
-                        <AreaChart data={chartData} margin={{ top: 20, right: 10, left: -20, bottom: 0 }}>
+                        <AreaChart data={chartData} margin={{ top: 20, right: 10, left: -50, bottom: 0 }}>
                             <defs>
                                 <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
                                     <stop offset="0%" stopColor="#60a5fa" stopOpacity={0.95} />
