@@ -1,0 +1,190 @@
+"use client"
+
+import { useState } from "react"
+import { Area, AreaChart, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts"
+import { Card, CardContent } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { CalendarIcon } from "lucide-react"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { Calendar } from "@/components/ui/calendar"
+
+// Type definitions for API integration
+export interface UserGrowthData {
+    month: string
+    value: number
+}
+
+interface UserGrowthChartProps {
+    data?: UserGrowthData[]
+    totalUsers?: number
+    onFilterChange?: (filter: "month" | "year") => void
+}
+
+// Sample data - replace this with your API data
+const sampleMonthData: UserGrowthData[] = [
+    { month: "Jan", value: 450 },
+    { month: "Feb", value: 380 },
+    { month: "March", value: 520 },
+    { month: "April", value: 680 },
+    { month: "May", value: 580 },
+    { month: "June", value: 750 },
+    { month: "July", value: 650 },
+    { month: "Aug", value: 900 },
+    { month: "Sep", value: 820 },
+    { month: "Oct", value: 720 },
+    { month: "Nov", value: 980 },
+    { month: "Dec", value: 1450 },
+]
+
+const sampleYearData: UserGrowthData[] = [
+    { month: "2019", value: 1200 },
+    { month: "2020", value: 1500 },
+    { month: "2021", value: 1800 },
+    { month: "2022", value: 2100 },
+    { month: "2023", value: 2300 },
+    { month: "2024", value: 2500 },
+]
+
+// Custom tooltip component
+const CustomTooltip = ({ active, payload }: any) => {
+    if (active && payload && payload.length) {
+        return (
+            <div className="rounded-lg bg-blue-600 px-4 py-2 text-white shadow-lg">
+                <p className="text-sm font-semibold">{payload[0].value}</p>
+            </div>
+        )
+    }
+    return null
+}
+
+// Custom dot component with orange circle
+const CustomDot = (props: any) => {
+    const { cx, cy, payload, index, dataLength } = props
+
+    // Only show dot on hover or for specific data points
+    if (index === Math.floor(dataLength / 2)) {
+        return (
+            <g>
+                <circle cx={cx} cy={cy} r={6} fill="white" stroke="#3b82f6" strokeWidth={3} />
+                <circle cx={cx} cy={cy} r={4} fill="#f97316" />
+            </g>
+        )
+    }
+    return null
+}
+
+const UserGrothChart = () => {
+    const [filter, setFilter] = useState<"month" | "year">("month")
+    const [date, setDate] = useState<Date | undefined>(new Date())
+    const [isCalendarOpen, setIsCalendarOpen] = useState(false)
+
+    // Use provided data or fallback to sample data
+    const chartData = data || (filter === "month" ? sampleMonthData : sampleYearData)
+    const total = totalUsers || 2500
+
+    const handleFilterChange = (newFilter: "month" | "year") => {
+        setFilter(newFilter)
+        onFilterChange?.(newFilter)
+    }
+
+    return (
+        <Card className="w-full border-2 border-blue-500 shadow-lg">
+            <CardContent className="p-4 sm:p-6">
+                {/* Header */}
+                <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                    <h2 className="text-base font-semibold text-foreground sm:text-lg">User Growth ({total.toLocaleString()})</h2>
+
+                    <div className="flex flex-wrap items-center gap-2">
+                        <Button
+                            variant={filter === "month" ? "default" : "ghost"}
+                            size="sm"
+                            onClick={() => handleFilterChange("month")}
+                            className={
+                                filter === "month"
+                                    ? "bg-blue-600 text-white hover:bg-blue-700"
+                                    : "text-muted-foreground hover:text-foreground"
+                            }
+                        >
+                            Month
+                        </Button>
+                        <Button
+                            variant={filter === "year" ? "default" : "ghost"}
+                            size="sm"
+                            onClick={() => handleFilterChange("year")}
+                            className={
+                                filter === "year"
+                                    ? "bg-blue-600 text-white hover:bg-blue-700"
+                                    : "text-muted-foreground hover:text-foreground"
+                            }
+                        >
+                            Year
+                        </Button>
+                        <Popover open={isCalendarOpen} onOpenChange={setIsCalendarOpen}>
+                            <PopoverTrigger asChild>
+                                <Button variant="ghost" size="icon" className="h-8 w-8">
+                                    <CalendarIcon className="h-4 w-4" />
+                                </Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-auto p-0" align="end">
+                                <Calendar
+                                    mode="single"
+                                    selected={date}
+                                    onSelect={(newDate) => {
+                                        setDate(newDate)
+                                        setIsCalendarOpen(false)
+                                    }}
+                                    initialFocus
+                                />
+                            </PopoverContent>
+                        </Popover>
+                    </div>
+                </div>
+
+                {/* Chart */}
+                <div className="h-75 w-full border-2 border-dashed border-blue-400 sm:h-87.5 lg:h-100">
+                    <ResponsiveContainer width="100%" height="100%">
+                        <AreaChart data={chartData} margin={{ top: 20, right: 10, left: -20, bottom: 0 }}>
+                            <defs>
+                                <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
+                                    <stop offset="0%" stopColor="#60a5fa" stopOpacity={0.95} />
+                                    <stop offset="30%" stopColor="#93c5fd" stopOpacity={0.7} />
+                                    <stop offset="70%" stopColor="#bfdbfe" stopOpacity={0.4} />
+                                    <stop offset="100%" stopColor="#eff6ff" stopOpacity={0.05} />
+                                </linearGradient>
+                            </defs>
+                            <CartesianGrid strokeDasharray="0" stroke="transparent" vertical={false} />
+                            <XAxis
+                                dataKey="month"
+                                axisLine={false}
+                                tickLine={false}
+                                tick={{ fill: "#6b7280", fontSize: 13 }}
+                                dy={10}
+                            />
+                            <YAxis axisLine={false} tickLine={false} tick={false} />
+                            <Tooltip
+                                content={<CustomTooltip />}
+                                cursor={{ stroke: "#93c5fd", strokeWidth: 1, strokeDasharray: "5 5" }}
+                            />
+                            <Area
+                                type="monotone"
+                                dataKey="value"
+                                stroke="#3b82f6"
+                                strokeWidth={2.5}
+                                fill="url(#colorValue)"
+                                dot={<CustomDot dataLength={chartData.length} />}
+                                activeDot={{
+                                    r: 6,
+                                    fill: "white",
+                                    stroke: "#3b82f6",
+                                    strokeWidth: 3,
+                                }}
+                            />
+                        </AreaChart>
+                    </ResponsiveContainer>
+                </div>
+            </CardContent>
+        </Card>
+    )
+}
+
+export default UserGrothChart
