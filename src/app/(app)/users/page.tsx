@@ -1,9 +1,12 @@
+import AdminHeader from '@/components/shared/AdminHeader'
 import React from 'react'
+import UserManagementTable from './UserManagementTable'
 
 const Dashboard = () => {
   return (
-    <div>
-      user
+    <div className='space-y-4'>
+      <AdminHeader title='User Management'></AdminHeader>
+      <UserManagementTable></UserManagementTable>
     </div>
   )
 }
