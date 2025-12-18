@@ -266,8 +266,7 @@ function SidebarTrigger({
       data-sidebar="trigger"
       data-slot="sidebar-trigger"
       variant="ghost"
-      size="icon-lg"
-      className={cn("w-full",)}
+      className={cn("w-full")}
       onClick={(event) => {
         onClick?.(event)
         toggleSidebar()
@@ -275,7 +274,7 @@ function SidebarTrigger({
       {...props}
     >
       {/* <PanelLeftIcon size={40}/> */}
-      <MdOutlineMenuOpen size={40}/>
+      <MdOutlineMenuOpen size={100}/>
       {/* <span className="sr-only">Toggle Sidebar</span> */}
     </Button>
   )

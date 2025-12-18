@@ -1,5 +1,5 @@
 "use client";
-
+import { LiaEditSolid } from "react-icons/lia";
 import React, { useState } from 'react';
 import { Trash2 } from 'lucide-react';
 import { format } from "date-fns";
@@ -11,6 +11,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar'; 
 import { CalendarIcon } from 'lucide-react';
+import Link from 'next/link';
 
 interface User {
     id: string;
@@ -34,7 +35,7 @@ const TranslationManagementTable = () => {
         const users: User[] = [];
         for (let i = 1; i <= 35; i++) {
             users.push({
-                id: `#${12345 + i}`,
+                id: `${12345 + i}`,
                 date: "15-10-2025",
                 status: i % 3 === 0 ? "Pending" : "Updated",
                 category: "Body Parts",
@@ -61,7 +62,7 @@ const TranslationManagementTable = () => {
             <div className="overflow-hidden">
                 {/* Date Picker and Tabs */}
                 <div className="p-6 border-b bg-main rounded-xl border-gray-200">
-                    <div className="flex items-center justify-between">
+                    <div className="flex flex-col md:flex-row gap-3 items-center justify-between">
                         <div className="flex items-center gap-3">
                             <span className="text-normal font-medium text-title">
                                 {/* তারিখ দেখানোর জন্য format করা */}
@@ -118,7 +119,7 @@ const TranslationManagementTable = () => {
                     <table className="w-full">
                         <thead>
                             <tr className="bg-[#E9EFFA]">
-                                <th className="px-6 py-4 text-left text-subheading text-header font-medium">User ID</th>
+                                <th className="px-6 py-4 text-left text-subheading text-header font-medium text-nowrap">User ID</th>
                                 <th className="px-6 py-4 text-left text-subheading text-header font-medium">Date</th>
                                 <th className="px-6 py-4 text-left text-subheading text-header font-medium">Status</th>
                                 <th className="px-6 py-4 text-left text-subheading text-header font-medium">Category</th>
@@ -135,9 +136,9 @@ const TranslationManagementTable = () => {
                                     className="border-b border-gray-200 hover:bg-gray-50 transition-colors"
                                 >
                                     <td className={`px-6 py-5 text-normal text-title bg-main ${index === 0 ? "rounded-tl-xl" : ""}`}>
-                                        {user.id}
+                                        #{user.id}
                                     </td>
-                                    <td className="px-6 py-5 text-normal text-title bg-main">{user.date}</td>
+                                    <td className="px-6 py-5 text-normal text-title bg-main text-nowrap">{user.date}</td>
                                     <td className="px-6 py-5 text-normal text-title bg-main">
                                         <span className={`${
                                             user.status === 'Pending' ? 'text-[#B35006]' : 'text-[#0C9721]'
@@ -146,11 +147,15 @@ const TranslationManagementTable = () => {
                                         </span>
                                     </td>
                                     <td className="px-6 py-5 text-normal text-title bg-main">{user.category}</td>
-                                    <td className="px-6 py-5 text-normal text-title bg-main">{user.english}</td>
-                                    <td className="px-6 py-5 text-normal text-title bg-main">{user.marshallese}</td>
-                                    <td className="px-6 py-5 text-normal text-title bg-main">{user.contextNote}</td>
-                                    <td className={`px-6 py-5 bg-main ${index === 0 ? "rounded-tr-xl" : ""}`}>
-                                        
+                                    <td className="px-6 py-5 text-normal text-title bg-main pl-10">{user.english}</td>
+                                    <td className="px-6 py-5 text-normal text-title bg-main pl-18">{user.marshallese}</td>
+                                    <td className="px-6 py-5 text-normal text-title bg-main pl-20">{user.contextNote}</td>
+                                    <td className={`px-6 py-5 bg-main ${index === 0 ? "rounded-tr-xl" : ""} space-x-5`}>
+                                        <button className="text-gray-600 hover:text-common transition-colors">
+                                            <Link href={`/manage-translation/${user.id}`}>
+                                            <LiaEditSolid className="w-5 h-5"/>
+                                            </Link>
+                                        </button>
                                         <button
                                             onClick={() => handleDelete(user.id)}
                                             className="text-gray-600 hover:text-red-600 transition-colors"
