@@ -1,0 +1,20 @@
+import AdminHeader from '@/components/shared/AdminHeader'
+import AdminSettingsbar from '@/components/shared/AdminSettingsbar'
+import React from 'react'
+
+const layout = ({ children }: { children: React.ReactNode }) => {
+    return (
+        <div className='space-y-4'>
+            <AdminHeader title='Settings'></AdminHeader>
+            <main className='bg-main p-10 rounded-xl flex flex-col md:flex-row md:justify-between gap-8'>
+                <AdminSettingsbar></AdminSettingsbar>
+                <div className="divider divider-horizontal divider-info"></div>
+                <div className='w-full md:w-1/2'>
+                    {children}
+                </div>
+            </main>
+        </div>
+    )
+}
+
+export default layout
