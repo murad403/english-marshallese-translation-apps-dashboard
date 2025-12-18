@@ -10,23 +10,10 @@ type TranslationFormData = {
 }
 
 const EditTranslationRequest = () => {
-    const {
-        register,
-        handleSubmit,
-        setValue,
-        formState: { errors },
-    } = useForm<TranslationFormData>({
-        defaultValues: {
-            category: "",
-            sourceText: "",
-            knownTranslation: "",
-            context: "",
-        },
-    })
+    const { register, handleSubmit, setValue, formState: { errors }} = useForm<TranslationFormData>()
 
     const onSubmit = (data: TranslationFormData) => {
         console.log("Form submitted:", data)
-        // Handle form submission logic here
     }
     return (
         <div className='bg-main rounded-xl p-5'>
@@ -40,10 +27,14 @@ const EditTranslationRequest = () => {
                                 <SelectValue placeholder="Select One" />
                             </SelectTrigger>
                             <SelectContent className='text-normal'>
-                                <SelectItem value="technical">Technical</SelectItem>
-                                <SelectItem value="medical">Medical</SelectItem>
-                                <SelectItem value="legal">Legal</SelectItem>
+                                <SelectItem value="body parts">Body Parts</SelectItem>
+                                <SelectItem value="question">Question</SelectItem>
                                 <SelectItem value="general">General</SelectItem>
+                                <SelectItem value="medication">Medication</SelectItem>
+                                <SelectItem value="common">Common</SelectItem>
+                                <SelectItem value="symptoms">Symptoms</SelectItem>
+                                <SelectItem value="emergency">Emergency</SelectItem>
+                                <SelectItem value="medical staff">Medical Staff</SelectItem>
                             </SelectContent>
                         </Select>
                     </div>
