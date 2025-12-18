@@ -12,7 +12,7 @@ const AdminSettingsbar = () => {
                 {
                     settingsLinks.map((link: TSettingLink) =>
                         <li key={link.id}>
-                            <Link href={link.route} className={`flex justify-between text-subheading items-center capitalize ${pathName === link.route ? "text-common" : "text-title"}`}>
+                            <Link href={link.route} className={`flex justify-between text-normal md:text-subheading items-center capitalize ${pathName === link.route ? "text-common" : "text-title"}`}>
                                 {link.label}
                                 <IoMdArrowForward />
                             </Link>

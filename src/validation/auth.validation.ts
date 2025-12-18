@@ -51,3 +51,26 @@ export const changePasswordValidationSchema = z
     message: "New passwords do not match",
     path: ["confirmNewPassword"],
   });
+
+
+export const privacyPolicyValidationSchema = z.object({
+  privacyAndPolicy: z
+    .string()
+    .min(1, { message: "Privacy policy is required" })
+    .min(200, { message: "Privacy policy must be at least 200 characters long" }),
+});
+
+export const termsServiceValidationSchema = z.object({
+  termsAndService: z
+    .string()
+    .min(1, { message: "Terms and service is required" })
+    .min(200, { message: "Terms and service must be at least 200 characters long" }),
+});
+
+
+export const aboutValidationSchema = z.object({
+  about: z
+    .string()
+    .min(1, { message: "About is required" })
+    .min(200, { message: "About must be at least 200 characters long" }),
+});
