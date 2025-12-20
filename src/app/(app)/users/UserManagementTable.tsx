@@ -73,14 +73,14 @@ const UserManagementTable = () => {
                     <table className="w-full rounded-xl">
                         <thead>
                             <tr className="bg-[#E9EFFA] *:py-5">
-                                <th className="px-6 text-left text-subheading text-header font-medium text-nowrap">User ID</th>
-                                <th className="px-6 text-left text-subheading text-header font-medium text-nowrap">User Name</th>
-                                <th className="px-6 text-left text-subheading text-header font-medium text-nowrap">User Email</th>
-                                <th className="px-6 text-left text-subheading text-header font-medium text-nowrap">User Phone</th>
-                                <th className="px-6 text-left text-subheading text-header font-medium text-nowrap">Joining Date</th>
-                                <th className="px-6 text-left text-subheading text-header font-medium">Status</th>
-                                <th className="px-6 text-left text-subheading text-header font-medium">Subscription</th>
-                                <th className="px-6 text-left text-subheading text-header font-medium">Action</th>
+                                <th className="px-6 text-left text-normal md:text-subheading text-header font-medium text-nowrap">User ID</th>
+                                <th className="px-6 text-left text-normal md:text-subheading text-header font-medium text-nowrap">User Name</th>
+                                <th className="px-6 text-left text-normal md:text-subheading text-header font-medium text-nowrap">User Email</th>
+                                <th className="px-6 text-left text-normal md:text-subheading text-header font-medium text-nowrap">User Phone</th>
+                                <th className="px-6 text-left text-normal md:text-subheading text-header font-medium text-nowrap">Joining Date</th>
+                                <th className="px-6 text-left text-normal md:text-subheading text-header font-medium">Status</th>
+                                <th className="px-6 text-left text-normal md:text-subheading text-header font-medium">Subscription</th>
+                                <th className="px-6 text-left text-normal md:text-subheading text-header font-medium">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -89,16 +89,16 @@ const UserManagementTable = () => {
                                     key={index}
                                     className="border-b border-gray-200 hover:bg-gray-50 transition-colors"
                                 >
-                                    <td className={`px-6 py-5 text-normal text-title bg-main ${index === 0 ? "rounded-tl-xl" : ""}`}>{user.id}</td>
-                                    <td className="px-6 py-5 text-normal text-title bg-main">{user.name}</td>
-                                    <td className="px-6 py-5 text-normal text-title bg-main">{user.email}</td>
-                                    <td className="px-6 py-5 text-normal text-title bg-main">{user.phone}</td>
-                                    <td className="px-6 py-5 text-normal text-title bg-main">{user.joiningDate}</td>
+                                    <td className={`px-6 py-5 md:text-normal text-small text-title bg-main ${index === 0 ? "rounded-tl-xl" : ""}`}>{user.id}</td>
+                                    <td className="px-6 py-5 md:text-normal text-small text-title bg-main">{user.name}</td>
+                                    <td className="px-6 py-5 md:text-normal text-small text-title bg-main">{user.email}</td>
+                                    <td className="px-6 py-5 md:text-normal text-small text-title bg-main">{user.phone}</td>
+                                    <td className="px-6 py-5 md:text-normal text-small text-title bg-main pl-10">{user.joiningDate}</td>
                                     <td className="px-6 py-5 bg-main">
-                                        <span className="text-normal text-title">{user.status}</span>
+                                        <span className="md:text-normal text-small text-title pl-1">{user.status}</span>
                                     </td>
-                                    <td className="px-6 py-5 text-normal text-title bg-main">{user.subscription}</td>
-                                    <td className={`px-6 py-5 bg-main ${index === 0 ? "rounded-tr-xl" : ""}`}>
+                                    <td className="px-6 py-5 md:text-normal text-small text-title bg-main pl-12">{user.subscription}</td>
+                                    <td className={`px-6 py-5 bg-main ${index === 0 ? "rounded-tr-xl" : ""} pl-10`}>
                                         <button
                                             onClick={() => handleDelete(user.id)}
                                             className="text-gray-600 hover:text-red-600 transition-colors"

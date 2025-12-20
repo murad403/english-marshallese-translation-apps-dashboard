@@ -28,7 +28,7 @@ const Settings = () => {
                     </div>
                 </div>
                 <div>
-                    <label className='block font-medium text-subheading mb-2 text-header'>Name</label>
+                    <label className='block font-medium text-normal mb-2 text-header'>Name</label>
                     <input {...register("name")} type='text' className='border border-border-color rounded-lg py-2 px-4 appearance-none outline-none w-full text-header' placeholder='Enter your email' />
                 </div>
                 <button type='submit' className='bg-common text-main py-2 rounded-lg w-full'>Save Change</button>

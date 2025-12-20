@@ -6,9 +6,9 @@ const layout = ({ children }: { children: React.ReactNode }) => {
     return (
         <div className='space-y-4'>
             <AdminHeader title='Settings'></AdminHeader>
-            <main className='bg-main p-10 rounded-xl flex flex-col md:flex-row md:justify-between gap-8'>
+            <main className='bg-main p-5 md:p-10 rounded-xl flex flex-col md:flex-row md:justify-between md:gap-8 gap-4 '>
                 <AdminSettingsbar></AdminSettingsbar>
-                <div className="divider divider-horizontal divider-info"></div>
+                <div className="divider md:divider-horizontal divider-info"></div>
                 <div className='w-full md:w-1/2'>
                     {children}
                 </div>

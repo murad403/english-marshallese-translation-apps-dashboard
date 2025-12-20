@@ -67,11 +67,11 @@ const ManageDatasetTable = () => {
                     <table className="w-full">
                         <thead>
                             <tr className="bg-[#E9EFFA]">
-                                <th className="px-6 py-4 text-left text-subheading text-header font-medium">Category</th>
-                                <th className="px-6 py-4 text-left text-subheading text-header font-medium">English</th>
-                                <th className="px-6 py-4 text-left text-subheading text-header font-medium">Marshallese</th>
-                                <th className="px-6 py-4 text-left text-subheading text-header font-medium">Context/Note</th>
-                                <th className="px-6 py-4 text-left text-subheading text-header font-medium">Action</th>
+                                <th className="px-6 py-4 text-left md:text-subheading text-normal text-header font-medium">Category</th>
+                                <th className="px-6 py-4 text-left md:text-subheading text-normal text-header font-medium">English</th>
+                                <th className="px-6 py-4 text-left md:text-subheading text-normal text-header font-medium">Marshallese</th>
+                                <th className="px-6 py-4 text-left md:text-subheading text-normal text-header font-medium">Context/Note</th>
+                                <th className="px-6 py-4 text-left md:text-subheading text-normal text-header font-medium">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -80,11 +80,11 @@ const ManageDatasetTable = () => {
                                     key={user.id}
                                     className="border-b border-gray-200 hover:bg-gray-50 transition-colors"
                                 >
-                                    <td className={`px-6 py-5 text-normal text-title bg-main ${index === 0 ? "rounded-tl-xl" : ""}`}>{user.category}</td>
-                                    <td className="px-6 py-5 text-normal text-title bg-main pl-10">{user.english}</td>
-                                    <td className="px-6 py-5 text-normal text-title bg-main pl-18">{user.marshallese}</td>
-                                    <td className="px-6 py-5 text-normal text-title bg-main pl-20">{user.contextNote}</td>
-                                    <td className={`px-6 py-5 bg-main ${index === 0 ? "rounded-tr-xl" : ""} space-x-5`}>
+                                    <td className={`px-6 py-5 md:text-normal text-small text-title bg-main ${index === 0 ? "rounded-tl-xl" : ""}`}>{user.category}</td>
+                                    <td className="px-6 py-5 md:text-normal text-small text-title bg-main pl-10">{user.english}</td>
+                                    <td className="px-6 py-5 md:text-normal text-small text-title bg-main pl-18">{user.marshallese}</td>
+                                    <td className="px-6 py-5 md:text-normal text-small text-title bg-main pl-20">{user.contextNote}</td>
+                                    <td className={`px-6 py-5 bg-main ${index === 0 ? "rounded-tr-xl" : ""} md:space-x-5`}>
                                         <button className="text-gray-600 hover:text-common transition-colors">
                                             <Link href={`/upload-dataset/${user.id}`}>
                                                 <LiaEditSolid className="w-5 h-5" />
