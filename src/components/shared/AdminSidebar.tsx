@@ -4,6 +4,7 @@ import logo from "@/assets/logo.jpg";
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
@@ -14,6 +15,8 @@ import {
 import Image from "next/image"
 import { sidebarLinks, TLink } from "@/lib/sidebarLinks";
 import { usePathname } from "next/navigation";
+import { CiLogout } from "react-icons/ci";
+import LogoutModal from "../modal/LogoutModal";
  
 
 const AdminSidebar = () => {
@@ -40,6 +43,13 @@ const AdminSidebar = () => {
                 ))}
               </SidebarMenu>
             </SidebarGroupContent>
+            <SidebarFooter className="flex justify-start w-full px-5 mt-10">
+              <button onClick={() => (document.getElementById('my_modal_2') as HTMLDialogElement).showModal()} className="flex items-center gap-4 text-normal hover:bg-accent py-2 px-2 rounded-lg">
+                <CiLogout className="text-common"/>
+                <span>Log Out</span>
+              </button>
+              <LogoutModal></LogoutModal>
+            </SidebarFooter>
           </SidebarGroup>
         </SidebarContent>
       </Sidebar>

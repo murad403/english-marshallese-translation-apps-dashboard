@@ -13,6 +13,7 @@ import { Calendar } from '@/components/ui/calendar';
 import { CalendarIcon } from 'lucide-react';
 import Link from 'next/link';
 import ManageDatasetHeader from "./ManageDatasetHeader";
+import DeleteModal from "@/components/modal/DeleteModal";
 
 interface User {
     id: string;
@@ -91,11 +92,12 @@ const ManageDatasetTable = () => {
                                             </Link>
                                         </button>
                                         <button
-                                            onClick={() => handleDelete(user.id)}
+                                            onClick={() => (document.getElementById('my_modal_1') as HTMLDialogElement).showModal()}
                                             className="text-gray-600 hover:text-red-600 transition-colors"
                                         >
                                             <Trash2 className="w-5 h-5" />
                                         </button>
+                                        <DeleteModal id={user.id}></DeleteModal>
                                     </td>
                                 </tr>
                             ))}

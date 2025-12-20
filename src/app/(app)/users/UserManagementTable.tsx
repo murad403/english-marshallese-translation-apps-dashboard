@@ -1,6 +1,7 @@
 "use client"
 import React, { useState } from 'react';
 import { Trash2, Search } from 'lucide-react';
+import DeleteModal from '@/components/modal/DeleteModal';
 
 interface User {
     id: string;
@@ -39,13 +40,6 @@ const UserManagementTable = () => {
     const startIndex = (currentPage - 1) * usersPerPage
     const endIndex = startIndex + usersPerPage
     const currentUsers = userData.slice(startIndex, endIndex)
-
-    
-
-
-    const handleDelete = (userId: string): void => {
-        console.log(`Delete user: ${userId}`);
-    };
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>): void => {
         setSearchTerm(e.target.value);
@@ -100,12 +94,13 @@ const UserManagementTable = () => {
                                     <td className="px-6 py-5 md:text-normal text-small text-title bg-main pl-12">{user.subscription}</td>
                                     <td className={`px-6 py-5 bg-main ${index === 0 ? "rounded-tr-xl" : ""} pl-10`}>
                                         <button
-                                            onClick={() => handleDelete(user.id)}
+                                            onClick={() =>{ (document.getElementById('my_modal_1') as HTMLDialogElement).showModal()}}
                                             className="text-gray-600 hover:text-red-600 transition-colors"
                                             aria-label="Delete user"
                                         >
                                             <Trash2 className="w-5 h-5" />
                                         </button>
+                                        <DeleteModal id={user.id}></DeleteModal>
                                     </td>
                                 </tr>
                             ))}
