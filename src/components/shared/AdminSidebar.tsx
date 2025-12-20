@@ -33,7 +33,7 @@ const AdminSidebar = () => {
               <SidebarMenu className="px-4">
                 {sidebarLinks.map((item: TLink) => (
                   <SidebarMenuItem  key={item.title}>
-                    <SidebarMenuButton className={`text-normal ${pathName === item.route ? "bg-common text-main hover:bg-main" : ""} capitalize`} asChild>
+                    <SidebarMenuButton className={`text-normal ${pathName === item.route ? "bg-common text-main hover:bg-common hover:text-main" : ""} capitalize`} asChild>
                       <a href={item.route}>
                         <item.icon />
                         <span>{item.title}</span>
