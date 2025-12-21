@@ -4,11 +4,11 @@ import { Button } from "@/components/ui/button"
 import { useState } from "react"
 
 type Activity = {
-    id: string
-    user: string
-    action: string
-    time: string
-    isRead: boolean
+    id: string;
+    user: string;
+    action: string;
+    time: string;
+    isRead: boolean;
 }
 
 const RecentActivityTable = () => {
@@ -29,9 +29,9 @@ const RecentActivityTable = () => {
     }
 
     return (
-        <div className="w-full rounded-lg bg-white p-4 sm:p-6 shadow-sm">
+        <div className="w-full rounded-lg bg-white p-4 sm:p-6">
             {/* Header */}
-            <div className="mb-6 py-3 flex items-center justify-between border-b border-[#BCCCEE]">
+            <div className="mb-6 pb-5 flex items-center justify-between border-b border-[#BCCCEE]">
                 <h2 className="text-normal font-semibold text-header">Recent Activity</h2>
                 <Button
                     variant="ghost"
@@ -56,7 +56,7 @@ const RecentActivityTable = () => {
                                 User {activity.user} {activity.action}
                             </p>
                         </div>
-
+ 
                         <div className="flex items-center gap-3">
                             <span className={`text-sm font-medium ${activity.isRead ? "text-gray-600" : "text-red-600"}`}>
                                 {activity.isRead ? "Read" : "Unread"}

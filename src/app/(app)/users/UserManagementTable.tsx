@@ -45,6 +45,7 @@ const UserManagementTable = () => {
         setSearchTerm(e.target.value);
     };
 
+    console.log(searchTerm)
     return (
         <div className="w-full">
             <div className="overflow-hidden">
@@ -57,7 +58,7 @@ const UserManagementTable = () => {
                             placeholder="Search by serial, name or email"
                             value={searchTerm}
                             onChange={handleSearch}
-                            className="md:w-1/4 w-full pl-10 pr-4 bg-[#E9EFFA] py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            className="md:w-1/4 w-full pl-10 pr-4 bg-[#E9EFFA] py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-[1px] focus:ring-common"
                         />
                     </div>
                 </div>

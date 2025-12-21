@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button"
 import { CalendarIcon } from "lucide-react"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Calendar } from "@/components/ui/calendar"
+import CustomTooltip from "@/components/ui/CustomTooltip"
+import CustomDot from "@/components/ui/CustomDot"
 
 
 // Type definitions for API integration
@@ -47,38 +49,38 @@ const sampleYearData: UserGrowthData[] = [
 ]
 
 // Custom tooltip component
-const CustomTooltip = ({ active, payload }: any) => {
-    if (active && payload && payload.length) {
-        return (
-            <div className="rounded-lg bg-blue-600 px-4 py-2 text-white shadow-lg">
-                <p className="text-sm font-semibold">{payload[0].value}</p>
-            </div>
-        )
-    }
-    return null
-}
+// const CustomTooltip = ({ active, payload }: any) => {
+//     if (active && payload && payload.length) {
+//         return (
+//             <div className="rounded-lg bg-blue-600 px-4 py-2 text-white shadow-lg">
+//                 <p className="text-sm font-semibold">{payload[0].value}</p>
+//             </div>
+//         )
+//     }
+//     return null
+// }
 
 // Custom dot component with orange circle
-const CustomDot = (props: any) => {
-    const { cx, cy, payload, index, dataLength } = props
+// const CustomDot = (props: any) => {
+//     const { cx, cy, payload, index, dataLength } = props
 
-    // Only show dot on hover or for specific data points
-    if (index === Math.floor(dataLength / 2)) {
-        return (
-            <g>
-                <circle cx={cx} cy={cy} r={6} fill="white" stroke="#FFFFFF" strokeWidth={5} />
-                <circle cx={cx} cy={cy} r={4} fill="#FEA41D" strokeWidth={10}/>
-            </g>
-        )
-    }
-    return null
-}
+//     // Only show dot on hover or for specific data points
+//     if (index === Math.floor(dataLength / 2)) {
+//         return (
+//             <g>
+//                 <circle cx={cx} cy={cy} r={6} fill="white" stroke="#FFFFFF" strokeWidth={17} />
+//                 <circle cx={cx} cy={cy} r={8} fill="#FEA41D" strokeWidth={15}/>
+//             </g>
+//         )
+//     }
+//     return null
+// }
 
 const UserGrothChart = () => {
     const [filter, setFilter] = useState<"month" | "year">("month")
     const [date, setDate] = useState<Date | undefined>(new Date())
     const [isCalendarOpen, setIsCalendarOpen] = useState(false)
-    console.log(filter)
+    // console.log( date)
 
     // Use provided data or fallback to sample data
     const chartData = (filter === "month" ? sampleMonthData : sampleYearData)
@@ -87,6 +89,7 @@ const UserGrothChart = () => {
     const handleFilterChange = (newFilter: "month" | "year") => {
         setFilter(newFilter)
         // onFilterChange?.(newFilter)
+        console.log(filter)
     }
 
     return (
