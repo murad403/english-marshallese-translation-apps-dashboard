@@ -41,7 +41,7 @@ const SignIn = () => {
                 </div>
                 <div className='flex justify-between items-center'>
                     <div className='flex gap-2'>
-                        <input {...register("rememberMe")} type="checkbox" className="checkbox border border-border-color text-header checkbox-sm rounded-lg" />
+                        <input {...register("rememberMe")} type="checkbox" className="checkbox border border-common text-header checkbox-sm" />
                         <label className=' text-small mb-2 text-header'>Remember me</label>
                     </div>
                     <div>
