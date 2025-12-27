@@ -7,9 +7,9 @@ import { getCurrentUser } from "@/utils/auth";
 const baseQuery = fetchBaseQuery({
     baseUrl: "http://10.10.12.35:8001/api",
     prepareHeaders: async(headers, { getState }) => {
-        const {refresh} = await getCurrentUser();
-        if (refresh) {
-            headers.set('Authorization', `Bearer ${refresh}`);
+        const {access} = await getCurrentUser();
+        if (access) {
+            headers.set('Authorization', `Bearer ${access}`);
         }
         return headers;
     }
