@@ -3,7 +3,8 @@ import React from 'react'
 import AdminSidebar from '../shared/AdminSidebar'
 import { SidebarProvider } from '../ui/sidebar'
 import { Provider } from 'react-redux'
-import { store } from '@/redux/store'
+import store from '@/redux/store'
+import { ToastContainer } from 'react-toastify';
 
 const Wrapper = ({ children }: { children: React.ReactNode }) => {
     return (
@@ -13,6 +14,7 @@ const Wrapper = ({ children }: { children: React.ReactNode }) => {
                 <main className='w-full p-4 space-y-4'>
                     {children}
                 </main>
+                <ToastContainer></ToastContainer>
             </SidebarProvider>
         </Provider>
     )

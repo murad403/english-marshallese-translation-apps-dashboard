@@ -1,7 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
+import Loading from "@/components/shared/Loading";
+import { useForgotPasswordMutation } from "@/redux/features/auth/auth.api";
+import { setUser } from "@/redux/features/auth/auth.slice";
+import { useAppDispatch } from "@/redux/hooks";
 import { forgotPasswordValidationSchema } from "@/validation/auth.validation";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 import z from "zod";
 
 type TInputs = z.infer<typeof forgotPasswordValidationSchema>;
@@ -10,9 +17,19 @@ const ForgotPassword = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<TInputs>({
         resolver: zodResolver(forgotPasswordValidationSchema)
     });
+    const [forgotPassword, {isLoading}] = useForgotPasswordMutation();
+    const dispatch = useAppDispatch();
+    const router = useRouter();
 
-    const onSubmit: SubmitHandler<TInputs> = (data) => {
-        console.log(data);
+    const onSubmit: SubmitHandler<TInputs> = async(data) => {
+        try {
+            const result = await forgotPassword(data).unwrap();
+            await dispatch(setUser(data.email));
+            toast.success(result?.message);
+            router.push("/auth/verify-otp");
+        } catch (error: any) {
+            toast.error(error?.data?.details?.email?.[0]);
+        }
     }
     return (
         <div className='w-full md:w-[50%] bg-main md:p-20 p-5 rounded-lg'>
@@ -24,7 +41,11 @@ const ForgotPassword = () => {
                     {errors.email && <p className="text-red-400 text-sm mt-1">{errors.email.message}</p>}
                 </div>
 
-                <button type='submit' className='bg-common text-main py-2 rounded-lg w-full'>Send OTP</button>
+                <button type='submit' className='bg-common text-main py-2 rounded-lg w-full'>
+                    {
+                        isLoading ? <Loading/> : "Send OTP"
+                    }
+                </button>
             </form>
         </div>
     )

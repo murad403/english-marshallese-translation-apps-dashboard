@@ -1,10 +1,21 @@
-import React from 'react';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+"use client"
+import { removeToken } from '@/utils/auth';
+import { useRouter } from 'next/navigation';
 import { FiLogOut } from 'react-icons/fi';
+import { toast } from 'react-toastify';
 
 const LogoutModal = () => {
-    const handleLogout = () => {
-        console.log("User logged out");
-        (document.getElementById('my_modal_2') as HTMLDialogElement)?.close();
+    const router = useRouter();
+    const handleLogout = async() => {
+        try {
+            await removeToken();
+            (document.getElementById('my_modal_2') as HTMLDialogElement)?.close();
+            router.push("/auth/sign-in");
+            toast.success("Logout successfully");
+        } catch (error: any) {
+            toast.error("Please try again");
+        }
     };
     return (
         <dialog id="my_modal_2" className="modal modal-bottom sm:modal-middle">

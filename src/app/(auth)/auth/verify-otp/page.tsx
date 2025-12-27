@@ -1,4 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
+import Loading from '@/components/shared/Loading';
+import { useVerifyOtpMutation } from '@/redux/features/auth/auth.api';
+import { useAppSelector } from '@/redux/hooks';
+import { RootState } from '@/redux/store';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react'
 
@@ -7,7 +12,8 @@ const VerifyOtp = () => {
     const router = useRouter();
     const [otp, setOtp] = useState<string[]>(Array(6).fill(""));
     const [otpError, setOtpError] = useState<string>("");
-
+    const [verifyOtp, {isLoading}] = useVerifyOtpMutation();
+    const user = useAppSelector((state: RootState) => state?.auth?.user);
     const [timeLeft, setTimeLeft] = useState<number>(30);
 
     useEffect(() => {
@@ -34,14 +40,13 @@ const VerifyOtp = () => {
             inputRefs.current[index + 1]?.focus();
         }
     };
-
     const handleKeyDown = (index: number, e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Backspace' && !e.currentTarget.value && index > 0) {
             inputRefs.current[index - 1]?.focus();
         }
     };
 
-    const onsubmit = (e: React.FormEvent) => {
+    const onsubmit = async(e: React.FormEvent) => {
         e.preventDefault();
         const originalOtp = otp.join("");
         const emptyIndex = otp.findIndex(digit => digit === "");
@@ -50,8 +55,14 @@ const VerifyOtp = () => {
             inputRefs.current[emptyIndex]?.focus();
             return;
         }
-        console.log("Submitted OTP:", originalOtp);
-        router.push('/auth/reset-password')
+        try {
+            const result = await verifyOtp({email: user, otp: originalOtp}).unwrap();
+            console.log(result);
+            router.push("/auth/reset-password")
+        } catch (error: any) {
+            console.log(error)
+        } 
+        // router.push('/auth/reset-password')
     };
 
     const handleResendCode = () => {
@@ -97,7 +108,11 @@ const VerifyOtp = () => {
 
                 </div>
 
-                <button type='submit' className='bg-common text-main py-2 rounded-lg w-full'>Verify</button>
+                <button type='submit' className='bg-common text-main py-2 rounded-lg w-full'>
+                    {
+                        isLoading ? <Loading/> : 'Verify'
+                    }
+                </button>
             </form>
         </div>
     )
