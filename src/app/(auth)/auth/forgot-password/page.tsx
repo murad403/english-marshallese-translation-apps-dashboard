@@ -24,11 +24,11 @@ const ForgotPassword = () => {
     const onSubmit: SubmitHandler<TInputs> = async(data) => {
         try {
             const result = await forgotPassword(data).unwrap();
-            await dispatch(setUser(data.email));
+            await dispatch(setUser({user: data.email, otp: null}));
             toast.success(result?.message);
             router.push("/auth/verify-otp");
         } catch (error: any) {
-            toast.error(error?.data?.details?.email?.[0]);
+            toast.error(error?.data?.errors?.email?.[0]);
         }
     }
     return (

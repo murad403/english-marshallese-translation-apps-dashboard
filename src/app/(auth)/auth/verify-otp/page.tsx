@@ -2,10 +2,12 @@
 "use client"
 import Loading from '@/components/shared/Loading';
 import { useVerifyOtpMutation } from '@/redux/features/auth/auth.api';
-import { useAppSelector } from '@/redux/hooks';
+import { setUser } from '@/redux/features/auth/auth.slice';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { RootState } from '@/redux/store';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react'
+import { toast } from 'react-toastify';
 
 const VerifyOtp = () => {
     const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
@@ -14,15 +16,16 @@ const VerifyOtp = () => {
     const [otpError, setOtpError] = useState<string>("");
     const [verifyOtp, {isLoading}] = useVerifyOtpMutation();
     const user = useAppSelector((state: RootState) => state?.auth?.user);
-    const [timeLeft, setTimeLeft] = useState<number>(30);
-
-    useEffect(() => {
-        if (timeLeft <= 0) return;
-        const timer = setInterval(() => {
-            setTimeLeft((t) => t - 1);
-        }, 1000);
-        return () => clearInterval(timer);
-    }, [timeLeft]);
+    const dispatch = useAppDispatch();
+    
+    // const [timeLeft, setTimeLeft] = useState<number>(30);
+    // useEffect(() => {
+    //     if (timeLeft <= 0) return;
+    //     const timer = setInterval(() => {
+    //         setTimeLeft((t) => t - 1);
+    //     }, 1000);
+    //     return () => clearInterval(timer);
+    // }, [timeLeft]);
     // console.log(timeLeft)
 
     const handleChange = (index: number, e: React.ChangeEvent<HTMLInputElement>) => {
@@ -57,18 +60,20 @@ const VerifyOtp = () => {
         }
         try {
             const result = await verifyOtp({email: user, otp: originalOtp}).unwrap();
-            console.log(result);
-            router.push("/auth/reset-password")
+            toast.success(result?.message);
+            dispatch(setUser({user: user, otp: originalOtp}));
+            router.push("/auth/reset-password");
         } catch (error: any) {
-            console.log(error)
+            console.log(error);
+            toast.error(error?.data?.errors?.otp?.[0] || error?.data?.errors?.email?.[0])
         } 
         // router.push('/auth/reset-password')
     };
 
-    const handleResendCode = () => {
-        console.log("Resend code clicked");
-        setTimeLeft(30);
-    }
+    // const handleResendCode = () => {
+    //     console.log("Resend code clicked");
+    //     setTimeLeft(30);
+    // }
     return (
         <div className='w-full md:w-[50%] bg-main md:p-20 p-5 rounded-lg'>
             <form className='w-full space-y-5' onSubmit={onsubmit}>
@@ -92,7 +97,7 @@ const VerifyOtp = () => {
                     <p className='text-sm text-red-500 mb-4'>{otpError}</p>
                 )}
 
-                <div className='flex justify-between items-center mb-8'>
+                {/* <div className='flex justify-between items-center mb-8'>
                     <p className='font-medium text-small text-title'>{`Don't`} receive the code?</p>
                     {
                         timeLeft > 0 ?
@@ -106,7 +111,7 @@ const VerifyOtp = () => {
                             </button>
                     }
 
-                </div>
+                </div> */}
 
                 <button type='submit' className='bg-common text-main py-2 rounded-lg w-full'>
                     {

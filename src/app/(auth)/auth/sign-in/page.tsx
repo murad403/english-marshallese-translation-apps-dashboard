@@ -26,13 +26,13 @@ const SignIn = () => {
     const onSubmit: SubmitHandler<TInputs> = async (data) => {
         try {
             const result = await siginInUser(data).unwrap();
-            await saveToken(result?.access_token, result?.refresh_token);
+            await saveToken(result?.data?.access_token, result?.data?.refresh_token);
             router.push("/");
-            toast.success("Login successfully");
-            // console.log(result);
+            toast.success(result?.message);
         } catch (error: any) {
-            console.log(error?.data?.details?.credentials?.[0]);
-            toast.error(error?.data?.details?.credentials?.[0]);
+            // console.log(error?.data?.details?.credentials?.[0]);
+            toast.error(error?.data?.errors?.credentials?.[0]);
+            console.log(error)
         }
     }
     return (

@@ -18,17 +18,40 @@ export const forgotPasswordValidationSchema = z.object({
     .email({ message: "Invalid email address" }),
 })
 
+
+const commonPasswords = [
+  'password',
+  '12345678',
+  '123456789',
+  'qwerty123',
+  'password123',
+  'admin123',
+  'letmein',
+  'welcome',
+  'abc123',
+  'iloveyou',
+];
+
 export const resetPasswordValidationSchema = z
   .object({
-    password: z
+    new_password: z
       .string()
-      .min(1, { message: "Password is required" })
-      .min(6, { message: "Password must be at least 6 characters" }),
-    confirmPassword: z.string().min(1, { message: "Confirm password is required" }),
+      .min(1, { message: 'Password is required' })
+      .min(8, { message: 'This password is too short. It must contain at least 8 characters.' })
+      .refine((password) => !commonPasswords.includes(password.toLowerCase()), {
+        message: 'This password is too common.',
+      })
+      .refine((password) => !/^\d+$/.test(password), {
+        message: 'This password is entirely numeric.',
+      }),
+
+    confirm_password: z
+      .string()
+      .min(1, { message: 'Confirm password is required' }),
   })
-  .refine((data) => data.password === data.confirmPassword, {
+  .refine((data) => data.new_password === data.confirm_password, {
     message: "Passwords do not match",
-    path: ["confirmPassword"],
+    path: ['confirm_password'],
   });
 
 
