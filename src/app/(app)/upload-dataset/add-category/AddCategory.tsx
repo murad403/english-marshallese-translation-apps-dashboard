@@ -63,11 +63,11 @@ const AddCategory = () => {
 
   return (
     <div className="bg-main p-8 rounded-xl">
-      <div className="flex flex-wrap gap-3 justify-center mb-8">
+      <div className="flex flex-wrap gap-3 mb-8">
         {categories.map((cat, index) => (
           <div
             key={index}
-            className="bg-[#E9EFFA] text-title px-4 py-2 rounded-xl border-[0.5px] border-heading flex items-center gap-5 min-w-32 justify-between"
+            className="bg-[#E9EFFA] text-title p-2 rounded-xl border-[0.5px] border-heading flex items-center gap-5 min-w-32 justify-between"
           >
             {editingIndex === index ? (
               <input

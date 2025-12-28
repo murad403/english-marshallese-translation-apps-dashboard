@@ -1,19 +1,26 @@
 "use client"
 import { useForm } from "react-hook-form"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { useParams } from "next/navigation";
+import { useGetDatasetQuery } from "@/redux/features/dataset/dataset.api";
 
 type TranslationFormData = {
   category: string;
-  english: string;
-  marshallese: string;
-  context: string;
+  english_text: string;
+  marshallese_text: string;
+  description: string;
 }
 
 const EditDataset = () => {
-    const { register, handleSubmit, setValue, formState: { errors }} = useForm<TranslationFormData>()
+    const { register, handleSubmit, setValue, formState: { errors }} = useForm<TranslationFormData>();
+    const {datasetId} = useParams();
+    const {data} = useGetDatasetQuery({page: 1});
+    console.log(data)
+    // const currentDataset = 
+    // console.log(datasetId);
 
     const onSubmit = (data: TranslationFormData) => {
-        console.log("Form submitted:", data)
+        console.log("Form submitted:", data);
     }
     return (
         <div className='bg-main rounded-xl p-5'>
@@ -43,7 +50,7 @@ const EditDataset = () => {
                     <div className="bg-[#E9EFFA] p-5 rounded-xl">
                         <label className="text-header font-medium text-subheading">English</label>
                         <input
-                            {...register("english", { required: true })}
+                            {...register("english_text", { required: true })}
                             placeholder="I think my arm is broken"
                             className="w-full py-3 rounded-lg outline-none placeholder:text-title px-4 bg-[#BCCCEE] text-title text-normal mt-3"
                         />
@@ -53,7 +60,7 @@ const EditDataset = () => {
                     <div className="bg-[#E9EFFA] p-5 rounded-xl">
                         <label className="text-header font-medium text-subheading">Marshallese</label>
                         <input
-                            {...register("marshallese")}
+                            {...register("marshallese_text")}
                             placeholder="Write here"
                             className="w-full py-3 rounded-lg outline-none placeholder:text-title px-4 bg-[#BCCCEE] text-title text-normal mt-3"
                         />
@@ -64,7 +71,7 @@ const EditDataset = () => {
                 <div className="bg-[#E9EFFA] p-5 rounded-xl">
                     <label className="text-header font-medium text-subheading">Add context or notes</label>
                     <textarea
-                        {...register("context")}
+                        {...register("description")}
                         placeholder="The human body is a complex and fascinating system made up of billions of cells working together to sustain life. It consists of several major systems, including the skeletal, muscular, circulatory, respiratory, digestive, nervous, and reproductive systems - each performing specific functions essential for survival."
                         rows={6}
                         className="w-full py-3 rounded-lg outline-none placeholder:text-title px-4 bg-[#BCCCEE] text-title text-normal mt-3"

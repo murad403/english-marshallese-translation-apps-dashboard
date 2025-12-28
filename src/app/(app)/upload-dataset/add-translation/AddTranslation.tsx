@@ -1,6 +1,7 @@
 "use client"
 import { useState } from 'react';
 import { IoIosAddCircleOutline } from 'react-icons/io';
+import { X } from 'lucide-react';
 
 type TTranslationTag = {
   value: string;
@@ -29,20 +30,31 @@ const AddTranslation = () => {
     }
   };
 
+  const handleDelete = (valueToDelete: string) => {
+    setTags(tags.filter(tag => tag.value !== valueToDelete));
+  };
+
   const handleSaveAll = () => {
-    console.log('Final Tags:', tags, newLabel);
+    console.log('Final Tags:', tags);
   };
 
   return (
     <div className="bg-main p-8 rounded-xl">
       {/* ট্যাগগুলো */}
-      <div className="flex flex-wrap gap-3 justify-center mb-8">
+      <div className="flex flex-wrap gap-3 mb-8">
         {tags.map((tag) => (
           <div
             key={tag.value}
-            className="bg-[#E9EFFA] text-title px-5 py-2 rounded-xl border-[0.5px] border-heading flex items-center"
+            className="bg-[#E9EFFA] text-title p-2 rounded-xl border-[0.5px] border-heading flex items-center gap-4 group"
           >
             <span className="font-medium">{tag.label}</span>
+            <button
+              onClick={() => handleDelete(tag.value)}
+              className="text-gray-500 hover:text-red-600 transition-colors"
+              aria-label="Delete tag"
+            >
+              <X className="w-4 h-4" />
+            </button>
           </div>
         ))}
 
@@ -72,7 +84,7 @@ const AddTranslation = () => {
         {!isAddingNew && (
           <button
             onClick={() => setIsAddingNew(true)}
-            className=" font-medium"
+            className="font-medium"
           >
             <IoIosAddCircleOutline size={35} className='text-common' />
           </button>
@@ -83,7 +95,7 @@ const AddTranslation = () => {
       <div className="flex justify-center">
         <button
           onClick={handleSaveAll}
-          className="bg-common text-main px-6 py-3 rounded-lg font-medium"
+          className="bg-common text-main px-6 py-3 rounded-lg font-medium hover:bg-opacity-90 transition-colors"
         >
           Save Now
         </button>

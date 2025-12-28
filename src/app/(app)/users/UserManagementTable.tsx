@@ -1,9 +1,9 @@
 "use client"
 import React, { useState } from 'react';
 import { Trash2, Search } from 'lucide-react';
-import DeleteModal from '@/components/modal/DeleteModal';
 import { TUser } from '@/types/alltypes';
 import { useGetUsersQuery } from '@/redux/features/user/user.api';
+import UserDeleteModal from '@/components/modal/UserDeleteModal';
 
 
 const UserManagementTable = () => {
@@ -84,7 +84,7 @@ const UserManagementTable = () => {
                                         >
                                             <Trash2 className="w-5 h-5" />
                                         </button>
-                                        <DeleteModal id={user.id}></DeleteModal>
+                                        <UserDeleteModal id={user.id}></UserDeleteModal>
                                     </td>
                                 </tr>
                             ))}

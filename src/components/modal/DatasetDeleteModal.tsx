@@ -1,23 +1,22 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useDeleteUserMutation } from '@/redux/features/user/user.api';
 import { CiWarning } from 'react-icons/ci';
 import { toast } from 'react-toastify';
 import Loading from '../shared/Loading';
+import { useDeleteDatasetMutation } from '@/redux/features/dataset/dataset.api';
 
-const DeleteModal = ({ id }: { id: number }) => {
-    const [deleteUser, {isLoading}] = useDeleteUserMutation();
-
+const DatasetDeleteModal = ({ id }: { id: number }) => {
+    const [deleteDataset, {isLoading}] = useDeleteDatasetMutation();
     const handleDelete = async(id: number) => {
         try {
-            const result = await deleteUser(id).unwrap();
+            const result = await deleteDataset(id).unwrap();
             toast.success(result?.message);
-            (document.getElementById('my_modal_1') as HTMLDialogElement)?.close();
+            (document.getElementById('my_modal_3') as HTMLDialogElement)?.close();
         } catch (error: any) {
             toast.error(error?.data?.message);
         }
     }
     return (
-        <dialog id="my_modal_1" className="modal modal-bottom sm:modal-middle">
+        <dialog id="my_modal_3" className="modal modal-bottom sm:modal-middle">
             <div className="modal-box bg-main shadow-xl rounded-xl p-5">
                 <div className="flex justify-center mb-4">
                     <div className="p-4 bg-red-100 rounded-full">
@@ -52,4 +51,4 @@ const DeleteModal = ({ id }: { id: number }) => {
     )
 }
 
-export default DeleteModal
+export default DatasetDeleteModal

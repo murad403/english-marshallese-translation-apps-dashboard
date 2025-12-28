@@ -12,7 +12,7 @@ import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar'; 
 import { CalendarIcon } from 'lucide-react';
 import Link from 'next/link';
-import DeleteModal from "@/components/modal/DeleteModal";
+import DeleteModal from "@/components/modal/UserDeleteModal";
 
 interface User {
     id: string;

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export type TActivity = {
     id: number
     activity_type: string
@@ -21,3 +22,19 @@ export type  TUser = {
   status: string
   subscription: string
 }
+
+
+export type TDataset = {
+  id: number
+  english_text: string
+  marshallese_text: string
+  category: string
+  description: string
+  is_favorite: boolean
+  usage_count: number
+  is_sample: boolean
+  created_by: any
+  created_date: string
+  updated_date: string
+}
+
