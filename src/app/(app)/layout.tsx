@@ -7,13 +7,12 @@ const layout = ({
     children: React.ReactNode
 }>) => {
     return (
-        <div>
-            <Wrapper>
-                {
-                    children
-                }
-            </Wrapper>
-        </div>
+        <Wrapper>
+            {
+                children
+            }
+        </Wrapper>
+
     )
 }
 

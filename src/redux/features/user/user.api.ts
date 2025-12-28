@@ -2,16 +2,25 @@ import baseApi from "@/redux/api/api";
 
 const userApi = baseApi.injectEndpoints({
     endpoints: (builder) =>({
-        allUsers: builder.query({
-            query: () =>{
+        getUsers: builder.query({
+            query: ({ page, search}) =>{
                 return {
-                    url: `/administration/submissions/page/1/`,
+                    url: `/administration/users/page/${page}/?search=${search}`,
                     method: "GET"
                 }
-            }
+            },
+            providesTags: ["user"]
         }),
-
+        deleteUser: builder.mutation({
+            query: (id) =>{
+                return {
+                    url: `/administration/users/${id}/`,
+                    method: "DELETE"
+                }
+            },
+            invalidatesTags: ["user"]
+        })
     })
 })
 
-export const {useAllUsersQuery} = userApi;
+export const {useGetUsersQuery, useDeleteUserMutation} = userApi;

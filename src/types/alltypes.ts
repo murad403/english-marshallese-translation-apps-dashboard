@@ -9,3 +9,15 @@ export type TActivity = {
     is_read: boolean
     created_date: string
 }
+
+
+export type  TUser = {
+  id: number
+  user_id: string
+  user_name: string
+  user_email: string
+  user_phone: string
+  joining_date: string
+  status: string
+  subscription: string
+}

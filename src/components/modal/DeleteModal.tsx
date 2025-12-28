@@ -1,11 +1,20 @@
-import React from 'react'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useDeleteUserMutation } from '@/redux/features/user/user.api';
 import { CiWarning } from 'react-icons/ci';
+import { toast } from 'react-toastify';
+import Loading from '../shared/Loading';
 
-const DeleteModal = ({ id }: { id: string }) => {
-    const handleDelete = () => {
+const DeleteModal = ({ id }: { id: number }) => {
+    const [deleteUser, {isLoading}] = useDeleteUserMutation();
 
-        console.log("deleted user", id);
-        (document.getElementById('my_modal_1') as HTMLDialogElement)?.close();
+    const handleDelete = async(id: number) => {
+        try {
+            const result = await deleteUser(id).unwrap();
+            toast.success(result?.message);
+            (document.getElementById('my_modal_1') as HTMLDialogElement)?.close();
+        } catch (error: any) {
+            toast.error(error?.data?.message);
+        }
     }
     return (
         <dialog id="my_modal_1" className="modal modal-bottom sm:modal-middle">
@@ -31,9 +40,11 @@ const DeleteModal = ({ id }: { id: string }) => {
 
                     <button
                         className="bg-red-500 hover:bg-red-600 rounded-lg py-2 px-6 text-main font-medium transition"
-                        onClick={handleDelete}
+                        onClick={() =>handleDelete(id)}
                     >
-                        Delete
+                        {
+                            isLoading ? <Loading/> : "Delete"
+                        }
                     </button>
                 </div>
             </div>

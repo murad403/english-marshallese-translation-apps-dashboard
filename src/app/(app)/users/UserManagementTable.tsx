@@ -2,50 +2,33 @@
 import React, { useState } from 'react';
 import { Trash2, Search } from 'lucide-react';
 import DeleteModal from '@/components/modal/DeleteModal';
-
-interface User {
-    id: string;
-    name: string;
-    email: string;
-    phone: string;
-    joiningDate: string;
-    status: 'Active' | 'Inactive';
-    subscription: string;
-}
+import { TUser } from '@/types/alltypes';
+import { useGetUsersQuery } from '@/redux/features/user/user.api';
 
 
 const UserManagementTable = () => {
-    const [searchTerm, setSearchTerm] = useState<string>('');
+    const [searchTerm, setSearchTerm] = useState<string>("");
     const [currentPage, setCurrentPage] = useState<number>(1);
 
-    const users = (): User[] => {
-        const users: User[] = []
-        for (let i = 1; i <= 35; i++) {
-            users.push({
-                id: `#${12345 + i}`,
-                name: "Mr. Jack",
-                email: "mrjack123@gmail.com",
-                phone: "017762892858",
-                joiningDate: "15-10-2025",
-                status: "Active",
-                subscription: "Regular",
-            })
-        }
-        return users
-    }
-    const userData = users();
+    const {data} = useGetUsersQuery({page: currentPage, search: searchTerm});
+    // console.log(data?.data);
 
-    const usersPerPage = 7;
-    const totalPages = Math.ceil(userData.length / usersPerPage)
-    const startIndex = (currentPage - 1) * usersPerPage
-    const endIndex = startIndex + usersPerPage
-    const currentUsers = userData.slice(startIndex, endIndex)
+    const totalPages = Math.ceil(data?.data?.total / data?.data?.limit);
+    // console.log(totalPages);
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>): void => {
         setSearchTerm(e.target.value);
     };
-
-    console.log(searchTerm)
+    const handlePreviousPage = () =>{
+        if(currentPage !== 1){
+            setCurrentPage(currentPage - 1);
+        }
+    }
+    const handleNextPage = () =>{
+        if(totalPages !== currentPage){
+            setCurrentPage(currentPage + 1)
+        }
+    }
     return (
         <div className="w-full">
             <div className="overflow-hidden">
@@ -79,20 +62,20 @@ const UserManagementTable = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {currentUsers.map((user: User, index: number) => (
+                            {data?.data?.users.map((user: TUser, index: number) => (
                                 <tr
-                                    key={index}
+                                    key={user?.id}
                                     className="border-b border-gray-200 hover:bg-gray-50 transition-colors"
                                 >
-                                    <td className={`px-6 py-5 md:text-normal text-small text-title bg-main ${index === 0 ? "rounded-tl-xl" : ""}`}>{user.id}</td>
-                                    <td className="px-6 py-5 md:text-normal text-small text-title bg-main">{user.name}</td>
-                                    <td className="px-6 py-5 md:text-normal text-small text-title bg-main">{user.email}</td>
-                                    <td className="px-6 py-5 md:text-normal text-small text-title bg-main">{user.phone}</td>
-                                    <td className="px-6 py-5 md:text-normal text-small text-title bg-main pl-10">{user.joiningDate}</td>
+                                    <td className={`px-6 py-5 md:text-normal text-small text-title bg-main pl-10 ${index === 0 ? "rounded-tl-xl" : ""}`}>{user.user_id}</td>
+                                    <td className="px-6 py-5 md:text-normal text-small text-title bg-main">{user?.user_name}</td>
+                                    <td className="px-6 py-5 md:text-normal text-small text-title bg-main">{user?.user_email}</td>
+                                    <td className="px-6 py-5 md:text-normal text-small text-title bg-main">{user?.user_phone}</td>
+                                    <td className="px-6 py-5 md:text-normal text-small text-title bg-main pl-10">{user?.joining_date}</td>
                                     <td className="px-6 py-5 bg-main">
-                                        <span className="md:text-normal text-small text-title pl-1">{user.status}</span>
+                                        <span className="md:text-normal text-small text-title pl-1">{user?.status}</span>
                                     </td>
-                                    <td className="px-6 py-5 md:text-normal text-small text-title bg-main pl-12">{user.subscription}</td>
+                                    <td className="px-6 py-5 md:text-normal text-small text-title bg-main pl-12">{user?.subscription}</td>
                                     <td className={`px-6 py-5 bg-main ${index === 0 ? "rounded-tr-xl" : ""} pl-10`}>
                                         <button
                                             onClick={() =>{ (document.getElementById('my_modal_1') as HTMLDialogElement).showModal()}}
@@ -116,15 +99,15 @@ const UserManagementTable = () => {
                     </div>
                     <div className="flex gap-2">
                         <button
-                            onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                            onClick={handlePreviousPage}
                             disabled={currentPage === 1}
                             className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                         >
                             Previous
                         </button>
                         <button
-                            onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
-                            disabled={currentPage === totalPages}
+                            onClick={handleNextPage}
+                            disabled={totalPages == currentPage}
                             className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                         >
                             Next
