@@ -10,7 +10,23 @@ const dashboardApi = baseApi.injectEndpoints({
                 }
             }
         }),
+        userGrowth: builder.query({
+            query: (params) =>{
+                return {
+                    url: `/administration/user-growth/?period=${params}`,
+                    method: "GET"
+                }
+            }
+        }),
+        recentActivity: builder.query({
+            query: () =>{
+                return {
+                    url: `/administration/recent-activity/`,
+                    method: "GET"
+                }
+            }
+        }),
     })
 })
 
-export const {useDashboardStatsQuery} = dashboardApi;
+export const {useDashboardStatsQuery, useUserGrowthQuery, useRecentActivityQuery} = dashboardApi;

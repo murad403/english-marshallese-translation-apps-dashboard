@@ -21,10 +21,7 @@ const AdminHeader = ({ title, isShowBackButton = false }: { title: string, isSho
                     }
                     <h1 className='font-medium text-title md:text-heading text-subheading capitalize'>{title}</h1>
                 </div>
-                <div className='flex items-center gap-5'>
-                    <Link className='md:text-[30px] text-[25px]' href={'/notification'}>
-                        <IoMdNotificationsOutline />
-                    </Link>
+                <div>
                     <Image src={profile} alt='admin' width={500} height={500} className='md:size-14 size-10' />
                 </div>
             </div>
