@@ -51,3 +51,20 @@ export type TCategory = {
   created_date: string
   updated_date: string
 }
+
+
+export type TTranslation = {
+  id: number
+  user_email: string
+  source_text: string
+  known_translation: string
+  category: number
+  category_details: TCategoryDetails
+  notes: string
+  status: string
+  status_display: string
+  admin_notes: any
+  created_date: string
+  updated_date: string
+}
+

@@ -9,7 +9,7 @@ const DASHBOARD_URL = "/";
 
 export async function proxy(request: NextRequest) {
     const { access, refresh } = await getCurrentUser();
-    console.log("refresh", refresh, access);
+    // console.log("refresh", refresh, access);
     const { pathname } = request.nextUrl;
 
     const isAuthPage = pathname.startsWith("/auth");

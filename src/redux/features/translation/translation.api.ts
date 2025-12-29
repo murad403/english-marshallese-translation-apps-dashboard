@@ -2,16 +2,53 @@ import baseApi from "@/redux/api/api";
 
 const translationApi = baseApi.injectEndpoints({
     endpoints: (builder) =>({
-        getTranslation: builder.query({
+        getSubmission: builder.query({
             query: ({ page, search}) =>{
                 return {
-                    url: `/administration/submissions/`,
+                    url: `/administration/submissions/page/${page}/?search=${search}`,
                     method: "GET"
                 }
             },
             providesTags: ["translation"]
         }),
+        deleteSubmission: builder.mutation({
+            query: (id) =>{
+                return {
+                    url: `/administration/submissions/${id}/delete/`,
+                    method: "Delete"
+                }
+            },
+            invalidatesTags: ["translation"]
+        }),
+        getSubmissionDetails: builder.query({
+            query: (id) =>{
+                return {
+                    url: `/administration/submissions/${id}/`,
+                    method: "GET"
+                }
+            }
+        }),
+        updateSubmission: builder.mutation({
+            query: ({id, data}) =>{
+                return {
+                    url: `/administration/submissions/${id}/update/`,
+                    method: "PUT",
+                    body: data
+                }
+            },
+            invalidatesTags: ["translation"]
+        }),
+
+        getAiTranslation: builder.query({
+            query: ({ page, search}) =>{
+                return {
+                    url: `/administration/ai-feedback/page/${page}/?search=${search}`,
+                    method: "GET"
+                }
+            },
+            providesTags: ["ai-submission"]
+        })
     })
 })
 
-export const {useGetTranslationQuery} = translationApi;
+export const {useGetSubmissionQuery, useDeleteSubmissionMutation, useGetSubmissionDetailsQuery, useUpdateSubmissionMutation, useGetAiTranslationQuery} = translationApi;

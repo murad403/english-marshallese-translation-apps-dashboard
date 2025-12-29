@@ -25,10 +25,13 @@ const EditDataset = () => {
     const [updateTranslation, {isLoading}] = useUpdateTranslationMutation();
     const router = useRouter();
 
-    // Set default category value when data loads
+    // Set all default values when data loads
     useEffect(() => {
-        if (data?.data?.category) {
+        if (data?.data) {
             setValue("category", String(data.data.category));
+            setValue("english_text", data.data.english_text || "");
+            setValue("marshallese_text", data.data.marshallese_text || "");
+            setValue("context", data.data.context || "");
         }
     }, [data, setValue]);
 
@@ -41,10 +44,10 @@ const EditDataset = () => {
                     category: Number(formData.category)
                 }
             }).unwrap();
-            toast.success(result?.message);
+            toast.success(result?.message || "Translation updated successfully");
             router.push("/upload-dataset");
         } catch (error: any) {
-             toast.error("Please try again")
+             toast.error(error?.data?.message || "Please try again")
         }
     }
 
@@ -147,11 +150,10 @@ const EditDataset = () => {
                 <div className="flex justify-center mt-4">
                     <button
                         type="submit"
-                        className="text-main text-normal font-medium bg-common px-4 py-2 rounded-lg hover:bg-opacity-90 transition-colors"
+                        disabled={isLoading}
+                        className="text-main text-normal font-medium bg-common px-4 py-2 rounded-lg hover:bg-opacity-90 transition-colors disabled:opacity-50"
                     >
-                        {
-                            isLoading ? <Loading/> : "Save Now"
-                        }
+                        {isLoading ? <Loading/> : "Save Now"}
                     </button>
                 </div>
             </form>
@@ -159,4 +161,4 @@ const EditDataset = () => {
     )
 }
 
-export default EditDataset 
+export default EditDataset

@@ -2,13 +2,18 @@
 import { CiWarning } from 'react-icons/ci';
 import { toast } from 'react-toastify';
 import Loading from '../shared/Loading';
+import { useDeleteSubmissionMutation } from '@/redux/features/translation/translation.api';
 
 const TranslationDeleteModal = ({ id }: { id: number }) => {
-
-    const handleDelete = async(id: number) => {
-      
+    const [deleteSubmission, { isLoading }] = useDeleteSubmissionMutation();
+    const handleDelete = async (id: number) => {
+        try {
+            const result = await deleteSubmission(id).unwrap();
+            toast.success(result?.message);
             (document.getElementById('my_modal_4') as HTMLDialogElement)?.close();
-        
+        } catch (error) {
+            toast.error("Please try again");
+        }
     }
     return (
         <dialog id="my_modal_4" className="modal modal-bottom sm:modal-middle">
@@ -34,12 +39,11 @@ const TranslationDeleteModal = ({ id }: { id: number }) => {
 
                     <button
                         className="bg-red-500 hover:bg-red-600 rounded-lg py-2 px-6 text-main font-medium transition"
-                        onClick={() =>handleDelete(id)}
+                        onClick={() => handleDelete(id)}
                     >
-                        {/* {
-                            isLoading ? <Loading/> : "Delete"
-                        } */}
-                        delete4
+                        {
+                            isLoading ? <Loading /> : "Delete"
+                        }
                     </button>
                 </div>
             </div>
