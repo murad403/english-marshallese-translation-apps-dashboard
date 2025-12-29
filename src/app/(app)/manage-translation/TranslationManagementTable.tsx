@@ -1,7 +1,7 @@
 "use client";
 import { LiaEditSolid } from "react-icons/lia";
 import React, { useState } from 'react';
-import { Trash2 } from 'lucide-react';
+import { Search, Trash2 } from 'lucide-react';
 import { format } from "date-fns";
 import {
     Popover,
@@ -9,10 +9,10 @@ import {
     PopoverTrigger,
 } from '@/components/ui/popover';
 import { Button } from '@/components/ui/button';
-import { Calendar } from '@/components/ui/calendar'; 
+import { Calendar } from '@/components/ui/calendar';
 import { CalendarIcon } from 'lucide-react';
 import Link from 'next/link';
-import DeleteModal from "@/components/modal/UserDeleteModal";
+import TranslationDeleteModal from "@/components/modal/TranslationDeleteModal";
 
 interface User {
     id: string;
@@ -25,6 +25,7 @@ interface User {
 }
 
 const TranslationManagementTable = () => {
+    const [searchTerm, setSearchTerm] = useState<string>("");
     const [activeTab, setActiveTab] = useState<'submission' | 'translation'>('submission');
     const [currentPage, setCurrentPage] = useState<number>(1);
 
@@ -55,61 +56,46 @@ const TranslationManagementTable = () => {
     const currentUsers = userData.slice(startIndex, endIndex);
 
 
+    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>): void => {
+        setSearchTerm(e.target.value);
+    };
     return (
         <div className="w-full">
             <div className="overflow-hidden">
                 {/* Date Picker and Tabs */}
-                <div className="p-6 border-b bg-main rounded-xl border-gray-200">
-                    <div className="flex flex-col md:flex-row gap-3 items-center justify-between">
-                        <div className="flex items-center gap-3">
-                            <span className="text-normal font-medium text-title">
-                                {/* তারিখ দেখানোর জন্য format করা */}
-                                {date ? format(date, "dd-MM-yy") : "Pick a date"}
-                            </span>
-
-                            <Popover open={isCalendarOpen} onOpenChange={setIsCalendarOpen}>
-                                <PopoverTrigger asChild>
-                                    <Button variant="ghost" size="icon" className="h-8 w-8">
-                                        <CalendarIcon className="h-4 w-4" />
-                                    </Button>
-                                </PopoverTrigger>
-                                <PopoverContent className="w-auto p-0" align="start">
-                                    <Calendar
-                                        mode="single"
-                                        selected={date}
-                                        onSelect={(newDate) => {
-                                            setDate(newDate); // newDate হবে Date | undefined
-                                            setIsCalendarOpen(false);
-                                        }}
-                                        initialFocus
-                                    />
-                                </PopoverContent>
-                            </Popover>
-                        </div>
-
-                        <div className="flex gap-2">
-                            <button
-                                onClick={() => setActiveTab('submission')}
-                                className={`px-4 py-2 rounded-md text-normal font-medium transition-colors ${
-                                    activeTab === 'submission'
-                                        ? 'bg-common text-white'
-                                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                                }`}
-                            >
-                                Submission (28)
-                            </button>
-                            <button
-                                onClick={() => setActiveTab('translation')}
-                                className={`px-4 py-2 rounded-md text-normal font-medium transition-colors ${
-                                    activeTab === 'translation'
-                                        ? 'bg-common text-white'
-                                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                                }`}
-                            >
-                                AI Translation (32)
-                            </button>
-                        </div>
+                <div className="p-6 border-b bg-main rounded-xl border-gray-200 grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div className="relative w-full">
+                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                        <input
+                            type="text"
+                            placeholder="Search by serial, name or email"
+                            value={searchTerm}
+                            onChange={handleSearch}
+                            className="md:w-2/4 w-full pl-10 pr-4 bg-[#E9EFFA] py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-[1px] focus:ring-common"
+                        />
                     </div>
+
+                    <div className="flex md:justify-end justify-center gap-2 w-full">
+                        <button
+                            onClick={() => setActiveTab('submission')}
+                            className={`px-4 py-2 rounded-md md:text-normal text-small font-medium transition-colors ${activeTab === 'submission'
+                                ? 'bg-common text-white'
+                                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                                }`}
+                        >
+                            Submission (28)
+                        </button>
+                        <button
+                            onClick={() => setActiveTab('translation')}
+                            className={`px-4 py-2 rounded-md md:text-normal text-small font-medium transition-colors ${activeTab === 'translation'
+                                ? 'bg-common text-white'
+                                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                                }`}
+                        >
+                            AI Translation (32)
+                        </button>
+                    </div>
+
                 </div>
 
                 {/* Table */}
@@ -138,9 +124,8 @@ const TranslationManagementTable = () => {
                                     </td>
                                     <td className="px-6 py-5 md:text-normal text-small text-title bg-main text-nowrap">{user.date}</td>
                                     <td className="px-6 py-5 md:text-normal text-small text-title bg-main">
-                                        <span className={`${
-                                            user.status === 'Pending' ? 'text-[#B35006]' : 'text-[#0C9721]'
-                                        }`}>
+                                        <span className={`${user.status === 'Pending' ? 'text-[#B35006]' : 'text-[#0C9721]'
+                                            }`}>
                                             {user.status}
                                         </span>
                                     </td>
@@ -151,16 +136,16 @@ const TranslationManagementTable = () => {
                                     <td className={`px-6 py-5 bg-main ${index === 0 ? "rounded-tr-xl" : ""} md:space-x-5`}>
                                         <button className="text-gray-600 hover:text-common transition-colors">
                                             <Link href={`/manage-translation/${user.id}`}>
-                                            <LiaEditSolid className="w-5 h-5"/>
+                                                <LiaEditSolid className="w-5 h-5" />
                                             </Link>
                                         </button>
                                         <button
-                                            onClick={() => (document.getElementById('my_modal_1') as HTMLDialogElement).showModal()}
+                                            onClick={() => (document.getElementById('my_modal_4') as HTMLDialogElement).showModal()}
                                             className="text-gray-600 hover:text-red-600 transition-colors"
                                         >
                                             <Trash2 className="w-5 h-5" />
                                         </button>
-                                        <DeleteModal id={user.id}></DeleteModal>
+                                        <TranslationDeleteModal id={2}></TranslationDeleteModal>
                                     </td>
                                 </tr>
                             ))}

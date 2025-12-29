@@ -7,6 +7,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useGetCategoriesQuery, useGetTranslationDetailsQuery, useUpdateTranslationMutation } from "@/redux/features/dataset/dataset.api";
 import { TCategory } from "@/types/alltypes";
 import { toast } from "react-toastify";
+import Loading from "@/components/shared/Loading";
 
 type TranslationFormData = {
     category: string;
@@ -148,7 +149,9 @@ const EditDataset = () => {
                         type="submit"
                         className="text-main text-normal font-medium bg-common px-4 py-2 rounded-lg hover:bg-opacity-90 transition-colors"
                     >
-                        Save Now
+                        {
+                            isLoading ? <Loading/> : "Save Now"
+                        }
                     </button>
                 </div>
             </form>

@@ -24,9 +24,19 @@ const dashboardApi = baseApi.injectEndpoints({
                     url: `/administration/recent-activity/`,
                     method: "GET"
                 }
-            }
+            },
+            providesTags: ["activity"]
         }),
+        deleteRecentActivity: builder.mutation({
+            query: (id) =>{
+                return {
+                    url: `/administration/recent-activity/${id}/`,
+                    method: "DELETE"
+                }
+            } ,
+            invalidatesTags: ["activity"]
+        })
     })
 })
 
-export const {useDashboardStatsQuery, useUserGrowthQuery, useRecentActivityQuery} = dashboardApi;
+export const {useDashboardStatsQuery, useUserGrowthQuery, useRecentActivityQuery, useDeleteRecentActivityMutation} = dashboardApi;
