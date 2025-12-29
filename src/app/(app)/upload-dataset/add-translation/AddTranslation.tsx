@@ -1,49 +1,35 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
-import { useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { useParams, useRouter } from "next/navigation";
-import { useGetCategoriesQuery, useGetTranslationDetailsQuery, useUpdateTranslationMutation } from "@/redux/features/dataset/dataset.api";
+import { useAddTranslationMutation, useGetCategoriesQuery } from "@/redux/features/dataset/dataset.api";
 import { TCategory } from "@/types/alltypes";
 import { toast } from "react-toastify";
+import Loading from "@/components/shared/Loading";
+
 
 type TranslationFormData = {
-    category: string;
-    english_text: string;
-    marshallese_text: string;
-    context: string;
+  category: string;
+  english_text: string;
+  marshallese_text: string;
+  context: string;
 }
 
-const EditDataset = () => {
-    const { data: categoriesData } = useGetCategoriesQuery(undefined);
-    const categories = categoriesData?.data?.categories;
-    const { register, handleSubmit, setValue, formState: { errors } } = useForm<TranslationFormData>();
-    const { datasetId } = useParams();
-    const { data } = useGetTranslationDetailsQuery({ id: datasetId }, { skip: !datasetId });
-    const [updateTranslation, {isLoading}] = useUpdateTranslationMutation();
-    const router = useRouter();
+const AddTranslation = () => {
+    const {data} = useGetCategoriesQuery(undefined);
+    const categories = data?.data?.categories;
+    const [addTranslation, {isLoading}] = useAddTranslationMutation();
 
-    // Set default category value when data loads
-    useEffect(() => {
-        if (data?.data?.category) {
-            setValue("category", String(data.data.category));
-        }
-    }, [data, setValue]);
+    const { register, handleSubmit, setValue, reset, formState: { errors }} = useForm<TranslationFormData>();
 
-    const onSubmit = async(formData: TranslationFormData) => {
+    const onSubmit = async(data: TranslationFormData) => {
         try {
-            const result = await updateTranslation({
-                id: datasetId,
-                data: {
-                    ...formData,
-                    category: Number(formData.category)
-                }
-            }).unwrap();
+            const result = await addTranslation({...data, category: Number(data?.category)}).unwrap();
             toast.success(result?.message);
-            router.push("/upload-dataset");
+            reset();
         } catch (error: any) {
-             toast.error("Please try again")
+            // console.log(error);
+            toast.error("Please try again")
         }
     }
 
@@ -53,22 +39,23 @@ const EditDataset = () => {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
                     {/* Type / Category */}
                     <div className="bg-[#E9EFFA] p-5 rounded-xl">
-                        <label className="text-header font-medium text-subheading">Type / Category</label>
-                        <Select
-                            value={data?.data?.category ? String(data.data.category) : undefined}
-                            onValueChange={(value) => setValue("category", value, {
-                                shouldValidate: true
+                        <label className="text-header font-medium text-subheading">
+                            Type / Category
+                        </label>
+                        <Select 
+                            onValueChange={(value) => setValue("category", value, { 
+                                shouldValidate: true 
                             })}
                         >
                             <SelectTrigger className="bg-[#BCCCEE] mt-3 w-full text-title text-normal">
-                                <SelectValue placeholder={data?.data?.category_details?.name || "Select One"} />
+                                <SelectValue placeholder="Select One" />
                             </SelectTrigger>
                             <SelectContent className='text-normal'>
                                 {
                                     categories?.map((category: TCategory) =>
-                                        <SelectItem
-                                            key={category?.id}
-                                            value={String(category?.id)}
+                                        <SelectItem 
+                                            key={category?.id} 
+                                            value={String(category?.id)} // number কে string এ convert করুন
                                         >
                                             {category?.name}
                                         </SelectItem>
@@ -76,6 +63,7 @@ const EditDataset = () => {
                                 }
                             </SelectContent>
                         </Select>
+                        {/* Hidden input for validation */}
                         <input
                             type="hidden"
                             {...register("category", { 
@@ -91,12 +79,14 @@ const EditDataset = () => {
 
                     {/* Source Text */}
                     <div className="bg-[#E9EFFA] p-5 rounded-xl">
-                        <label className="text-header font-medium text-subheading">English</label>
+                        <label className="text-header font-medium text-subheading">
+                            English
+                        </label>
                         <input
                             {...register("english_text", { 
                                 required: "English text is required" 
                             })}
-                            defaultValue={data?.data?.english_text}
+                            placeholder="English text write here"
                             className="w-full py-3 rounded-lg outline-none placeholder:text-title px-4 bg-[#BCCCEE] text-title text-normal mt-3"
                         />
                         {errors.english_text && (
@@ -108,12 +98,14 @@ const EditDataset = () => {
 
                     {/* Known Translation */}
                     <div className="bg-[#E9EFFA] p-5 rounded-xl">
-                        <label className="text-header font-medium text-subheading">Marshallese</label>
+                        <label className="text-header font-medium text-subheading">
+                            Marshallese
+                        </label>
                         <input
-                            {...register("marshallese_text", {
-                                required: "Marshallese text is required"
+                            {...register("marshallese_text", { 
+                                required: "Marshallese text is required" 
                             })}
-                            defaultValue={data?.data?.marshallese_text}
+                            placeholder="Marshallese text write here"
                             className="w-full py-3 rounded-lg outline-none placeholder:text-title px-4 bg-[#BCCCEE] text-title text-normal mt-3"
                         />
                         {errors.marshallese_text && (
@@ -126,12 +118,14 @@ const EditDataset = () => {
 
                 {/* Add context or notes */}
                 <div className="bg-[#E9EFFA] p-5 rounded-xl">
-                    <label className="text-header font-medium text-subheading">Add context or notes</label>
+                    <label className="text-header font-medium text-subheading">
+                        Add context or notes
+                    </label>
                     <textarea
-                        {...register("context", {
-                            required: "Context is required"
+                        {...register("context", { 
+                            required: "Description is required" 
                         })}
-                        defaultValue={data?.data?.context}
+                        placeholder="Enter your context or notes"
                         rows={6}
                         className="w-full py-3 rounded-lg outline-none placeholder:text-title px-4 bg-[#BCCCEE] text-title text-normal mt-3"
                     />
@@ -148,7 +142,9 @@ const EditDataset = () => {
                         type="submit"
                         className="text-main text-normal font-medium bg-common px-4 py-2 rounded-lg hover:bg-opacity-90 transition-colors"
                     >
-                        Save Now
+                       {
+                        isLoading ? <Loading/> : "Add New"
+                       }
                     </button>
                 </div>
             </form>
@@ -156,4 +152,4 @@ const EditDataset = () => {
     )
 }
 
-export default EditDataset 
+export default AddTranslation

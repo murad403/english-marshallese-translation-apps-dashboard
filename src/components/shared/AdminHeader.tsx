@@ -1,7 +1,5 @@
 "use client"
 import Image from 'next/image'
-import Link from 'next/link'
-import { IoMdNotificationsOutline } from 'react-icons/io'
 import profile from "@/assets/admin.png";
 import { SidebarTrigger } from '../ui/sidebar';
 import { MdOutlineKeyboardBackspace } from 'react-icons/md';

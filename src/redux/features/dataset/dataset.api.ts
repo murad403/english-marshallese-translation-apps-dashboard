@@ -2,7 +2,7 @@ import baseApi from "@/redux/api/api";
 
 const datasetApi = baseApi.injectEndpoints({
     endpoints: (builder) =>({
-        getDataset: builder.query({
+        getTranslation: builder.query({
             query: ({page}) =>{
                 return {
                     url: `/administration/translations/page/${page}/`,
@@ -11,7 +11,7 @@ const datasetApi = baseApi.injectEndpoints({
             },
             providesTags: ["dataset"]
         }),
-        deleteDataset: builder.mutation({
+        deleteTranslation: builder.mutation({
             query: (id: number) =>{
                 return {
                     url: `/administration/translations/delete/${id}/`,
@@ -20,7 +20,7 @@ const datasetApi = baseApi.injectEndpoints({
             },
             invalidatesTags: ["dataset"]
         }),
-        updateDataset: builder.mutation({
+        updateTranslation: builder.mutation({
             query: ({id, data}) =>{
                 return {
                     url: `/administration/translations/update/${id}/`,
@@ -30,6 +30,26 @@ const datasetApi = baseApi.injectEndpoints({
             },
             invalidatesTags: ["dataset"]
         }),
+        addTranslation: builder.mutation({
+            query: (data) =>{
+                return {
+                    url: "/administration/translations/add/",
+                    method: "POST",
+                    body: data
+                }
+            },
+            invalidatesTags: ["dataset"]
+        }),
+        getTranslationDetails: builder.query({
+            query: ({id}) =>{
+                return {
+                    url: `/administration/translations/${id}/`,
+                    method: "GET"
+                }
+            },
+            providesTags: ["dataset"]
+        }),
+
 
         // category related api-------
         getCategories: builder.query({
@@ -73,4 +93,4 @@ const datasetApi = baseApi.injectEndpoints({
     })
 })
 
-export const {useGetDatasetQuery, useDeleteDatasetMutation, useUpdateDatasetMutation, useGetCategoriesQuery, useAddCategoryMutation, useDeleteCategoryMutation, useUpdateCategoryMutation} = datasetApi;
+export const {useGetTranslationQuery, useDeleteTranslationMutation, useUpdateTranslationMutation, useAddTranslationMutation, useGetCategoriesQuery, useAddCategoryMutation, useDeleteCategoryMutation, useUpdateCategoryMutation, useGetTranslationDetailsQuery} = datasetApi;

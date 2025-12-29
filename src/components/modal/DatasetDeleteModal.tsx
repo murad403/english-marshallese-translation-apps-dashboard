@@ -2,10 +2,10 @@
 import { CiWarning } from 'react-icons/ci';
 import { toast } from 'react-toastify';
 import Loading from '../shared/Loading';
-import { useDeleteDatasetMutation } from '@/redux/features/dataset/dataset.api';
+import {useDeleteTranslationMutation } from '@/redux/features/dataset/dataset.api';
 
 const DatasetDeleteModal = ({ id }: { id: number }) => {
-    const [deleteDataset, {isLoading}] = useDeleteDatasetMutation();
+    const [deleteDataset, {isLoading}] = useDeleteTranslationMutation();
     const handleDelete = async(id: number) => {
         try {
             const result = await deleteDataset(id).unwrap();

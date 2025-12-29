@@ -5,12 +5,12 @@ import { Trash2 } from 'lucide-react';
 import Link from 'next/link';
 import ManageDatasetHeader from "./ManageDatasetHeader";
 import DatasetDeleteModal from "@/components/modal/DatasetDeleteModal";
-import { useGetDatasetQuery } from "@/redux/features/dataset/dataset.api";
 import { TDataset } from "@/types/alltypes";
+import { useGetTranslationQuery } from "@/redux/features/dataset/dataset.api";
 
 const ManageDatasetTable = () => {
     const [currentPage, setCurrentPage] = useState<number>(1);
-    const {data} = useGetDatasetQuery({page: currentPage});
+    const {data} = useGetTranslationQuery({page: currentPage});
     const totalPages = data?.data?.pagination?.total_pages;
 
 
