@@ -1,9 +1,11 @@
-import React from 'react'
+import AdminHeader from '@/components/shared/AdminHeader'
+import AitranslationManagementTable from './AitranslationManagementTable'
 
 const AiTranslation = () => {
   return (
-    <div>
-      ai
+    <div className='space-y-4'>
+      <AdminHeader title='Manage Translations'></AdminHeader>
+      <AitranslationManagementTable></AitranslationManagementTable>
     </div>
   )
 }

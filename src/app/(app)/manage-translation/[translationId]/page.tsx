@@ -9,7 +9,7 @@ const TranslationEdit = () => {
   return (
     <div className='space-y-4'>
       <AdminHeader title='View Translation Request' isShowBackButton></AdminHeader>
-       <EditTranslationRequestHeader translationId={translationId}></EditTranslationRequestHeader>
+      <EditTranslationRequestHeader translationId={translationId}></EditTranslationRequestHeader>
       <EditTranslationRequest></EditTranslationRequest>
     </div>
   )

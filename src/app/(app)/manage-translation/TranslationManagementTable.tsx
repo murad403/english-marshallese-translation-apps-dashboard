@@ -13,17 +13,15 @@ const TranslationManagementTable = () => {
     const [currentPage, setCurrentPage] = useState<number>(1);
     const { data, isLoading } = useGetSubmissionQuery({ page: currentPage, search: searchTerm });
     const {data: aiTranslationData, isLoading: aiTranslationLoading} = useGetAiTranslationQuery({ page: currentPage, search: searchTerm });
-    console.log(aiTranslationData?.data);
-    console.log(data?.data);
 
 
     // console.log(data?.data?.submissions);
     const [activeTab, setActiveTab] = useState<'submission' | 'translation'>('submission');
 
 
-    const translationData = activeTab === "submission" ? data?.data?.submissions : aiTranslationData?.data?.feedback_items;
+    const translationData = data?.data?.submissions;
 
-    const totalPages = activeTab === 'submission' ? Math.ceil(data?.data?.total / data?.data?.limit) : Math.ceil(aiTranslationData?.data?.total / aiTranslationData?.data?.limit);
+    const totalPages =  Math.ceil(data?.data?.total / data?.data?.limit);
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>): void => {
         setSearchTerm(e.target.value);
@@ -55,7 +53,7 @@ const TranslationManagementTable = () => {
                     </div>
 
                     <div className="flex md:justify-end justify-center gap-2 w-full">
-                        <button
+                        <Link href={"/manage-translation"}
                             onClick={() => setActiveTab('submission')}
                             className={`px-4 py-2 rounded-md md:text-normal text-small font-medium transition-colors ${activeTab === 'submission'
                                 ? 'bg-common text-white'
@@ -63,8 +61,8 @@ const TranslationManagementTable = () => {
                                 }`}
                         >
                             Submission ({data?.data?.total})
-                        </button>
-                        <button
+                        </Link>
+                        <Link href={"/ai-translation"}
                             onClick={() => setActiveTab('translation')}
                             className={`px-4 py-2 rounded-md md:text-normal text-small font-medium transition-colors ${activeTab === 'translation'
                                 ? 'bg-common text-white'
@@ -72,7 +70,7 @@ const TranslationManagementTable = () => {
                                 }`}
                         >
                             AI Translation ({aiTranslationData?.data?.total})
-                        </button>
+                        </Link>
                     </div>
 
                 </div>

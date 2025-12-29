@@ -47,8 +47,35 @@ const translationApi = baseApi.injectEndpoints({
                 }
             },
             providesTags: ["ai-submission"]
-        })
+        }),
+        deleteAiTranslation: builder.mutation({
+            query: (id) =>{
+                return {
+                    url: `/administration/ai-feedback/${id}/delete/`,
+                    method: "Delete"
+                }
+            },
+            invalidatesTags: ["ai-submission"]
+        }),
+        getAiTranslationDetails: builder.query({
+            query: (id) =>{
+                return {
+                    url: `/administration/ai-feedback/${id}/`,
+                    method: "GET"
+                }
+            }
+        }),
+        updateAiTranslation: builder.mutation({
+            query: ({id, data}) =>{
+                return {
+                    url: `/administration/ai-feedback/${id}/update/`,
+                    method: "PUT",
+                    body: data
+                }
+            },
+            invalidatesTags: ["ai-submission"]
+        }),
     })
 })
 
-export const {useGetSubmissionQuery, useDeleteSubmissionMutation, useGetSubmissionDetailsQuery, useUpdateSubmissionMutation, useGetAiTranslationQuery} = translationApi;
+export const {useGetSubmissionQuery, useDeleteSubmissionMutation, useGetSubmissionDetailsQuery, useUpdateSubmissionMutation, useGetAiTranslationQuery, useDeleteAiTranslationMutation, useGetAiTranslationDetailsQuery, useUpdateAiTranslationMutation} = translationApi;
