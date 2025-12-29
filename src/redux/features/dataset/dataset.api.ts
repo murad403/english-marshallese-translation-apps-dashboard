@@ -29,8 +29,48 @@ const datasetApi = baseApi.injectEndpoints({
                 }
             },
             invalidatesTags: ["dataset"]
-        })
+        }),
+
+        // category related api-------
+        getCategories: builder.query({
+            query: () =>{
+                return {
+                    url: "/administration/categories/",
+                    method: "GET"
+                }
+            },
+            providesTags: ["category"]
+        }),
+        addCategory: builder.mutation({
+            query: (data) =>{
+                return {
+                    url: `/administration/categories/add/`,
+                    method: "POST",
+                    body: data
+                }
+            },
+            invalidatesTags: ["category"]
+        }),
+        deleteCategory: builder.mutation({
+            query: (id: number) =>{
+                return {
+                    url: `/administration/categories/${id}/delete/`,
+                    method: "DELETE"
+                }
+            },
+            invalidatesTags: ["category"]
+        }),
+        updateCategory: builder.mutation({
+            query: ({id, data}) =>{
+                return {
+                    url: `/administration/categories/${id}/update/`,
+                    method: "PUT",
+                    body: data
+                }
+            },
+            invalidatesTags: ["category"]
+        }),
     })
 })
 
-export const {useGetDatasetQuery, useDeleteDatasetMutation, useUpdateDatasetMutation} = datasetApi;
+export const {useGetDatasetQuery, useDeleteDatasetMutation, useUpdateDatasetMutation, useGetCategoriesQuery, useAddCategoryMutation, useDeleteCategoryMutation, useUpdateCategoryMutation} = datasetApi;

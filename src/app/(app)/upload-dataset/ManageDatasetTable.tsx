@@ -47,10 +47,10 @@ const ManageDatasetTable = () => {
                                     key={set?.id}
                                     className="border-b border-gray-200 hover:bg-gray-50 transition-colors"
                                 >
-                                    <td className={`px-6 py-5 md:text-normal text-small text-title bg-main ${index === 0 ? "rounded-tl-xl" : ""}`}>{set?.category}</td>
+                                    <td className={`px-6 py-5 md:text-normal text-small text-title bg-main ${index === 0 ? "rounded-tl-xl" : ""}`}>{set?.category_details?.name}</td>
                                     <td className="px-6 py-5 md:text-normal text-small text-title bg-main">{set?.english_text}</td>
                                     <td className="px-6 py-5 md:text-normal text-small text-title bg-main">{set?.marshallese_text}</td>
-                                    <td className="px-6 py-5 md:text-normal text-small text-title bg-main">{set?.description}</td>
+                                    <td className="px-6 py-5 md:text-normal text-small text-title bg-main">{set?.context}</td>
                                     <td className={`px-6 py-5 bg-main ${index === 0 ? "rounded-tr-xl" : ""} md:space-x-5`}>
                                         <button className="text-gray-600 hover:text-common transition-colors">
                                             <Link href={`/upload-dataset/${set?.id}`}>

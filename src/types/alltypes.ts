@@ -28,13 +28,26 @@ export type TDataset = {
   id: number
   english_text: string
   marshallese_text: string
-  category: string
-  description: string
+  category: number
+  category_details: TCategoryDetails
+  context: any
   is_favorite: boolean
   usage_count: number
-  is_sample: boolean
   created_by: any
   created_date: string
   updated_date: string
 }
+export type TCategoryDetails = {
+  id: number
+  name: string
+}
 
+
+
+export type TCategory = {
+  id: number
+  name: string
+  context: string
+  created_date: string
+  updated_date: string
+}

@@ -1,115 +1,126 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
-import { Pencil, Trash2 } from 'lucide-react';
+import { useAddCategoryMutation, useDeleteCategoryMutation, useGetCategoriesQuery, useUpdateCategoryMutation } from '@/redux/features/dataset/dataset.api';
+import { TCategory } from '@/types/alltypes';
+import { Pencil, Trash2, X } from 'lucide-react';
 import { useState } from 'react';
+import { IoCheckmark } from 'react-icons/io5';
+import { toast } from 'react-toastify';
 
-type TCategory = {
-  value: string;
-  label: string;
-};
 
 const AddCategory = () => {
-  const [categories, setCategories] = useState<TCategory[]>([
-    { value: "body parts", label: "Body Parts" },
-    { value: "question", label: "Question" },
-    { value: "general", label: "General" },
-    { value: "medication", label: "Medication" },
-    { value: "common", label: "Common" },
-    { value: "symptoms", label: "Symptoms" },
-    { value: "emergency", label: "Emergency" },
-    { value: "medical staff", label: "Medical Staff" },
-  ]);
+  const { data } = useGetCategoriesQuery(undefined);
+  const categories = data?.data?.categories;
+  const [addCategory] = useAddCategoryMutation();
+  const [deleteCategory] = useDeleteCategoryMutation();
+  const [updateCategory] = useUpdateCategoryMutation();
+  const [newLabel, setNewLabel] = useState('');
+
 
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [editValue, setEditValue] = useState<string>('');
   const [isAddingNew, setIsAddingNew] = useState(false);
-  const [newLabel, setNewLabel] = useState('');
 
-  const handleEdit = (index: number) => {
-    setEditingIndex(index);
-    setEditValue(categories[index].label);
+
+  const handleEdit = (id: number) => {
+    setEditingIndex(id);
+    const categoryToEdit = categories?.find((cat: TCategory) => cat.id === id);
+    setEditValue(categoryToEdit?.name || '');
   };
 
-  const handleSaveEdit = (index: number) => {
-    if (editValue.trim()) {
-      const updated = [...categories];
-      updated[index].label = editValue.trim();
-      updated[index].value = editValue.trim().toLowerCase().replace(/\s+/g, ' ');
-      setCategories(updated);
+  const handleSaveEdit = async(id: number) => {
+    try {
+      const result = await updateCategory({ id: id, data: {name: editValue} }).unwrap();
+      toast.success(result?.message);
+      setEditingIndex(null);
+    } catch (error: any) {
+      toast.error(error?.data?.message);
     }
-    setEditingIndex(null);
-    setEditValue('');
   };
+
+
 
   const handleCancelEdit = () => {
     setEditingIndex(null);
     setEditValue('');
   };
 
-  const handleDelete = (index: number) => {
-    setCategories(categories.filter((_, i) => i !== index));
+  // delete category
+  const handleDelete = async (id: number) => {
+    try {
+      const result = await deleteCategory(id).unwrap();
+      toast.success(result?.message);
+    } catch (error: any) {
+      toast.error(error?.data?.message);
+    }
   };
 
-  const handleAddNew = () => {
-    if (newLabel.trim()) {
-      const newCat: TCategory = {
-        label: newLabel.trim(),
-        value: newLabel.trim().toLowerCase().replace(/\s+/g, ' '),
-      };
-      setCategories([...categories, newCat]);
-      setNewLabel('');
+  // add new category
+  const handleAddNew = async () => {
+    try {
+      const result = await addCategory({ name: newLabel, context: newLabel }).unwrap();
+      toast.success(result?.message);
+      setNewLabel("");
       setIsAddingNew(false);
+    } catch (error: any) {
+      toast.error("Please try again");
     }
   };
 
   return (
     <div className="bg-main p-8 rounded-xl">
       <div className="flex flex-wrap gap-3 mb-8">
-        {categories.map((cat, index) => (
+        {categories?.map((category: TCategory) => (
           <div
-            key={index}
+            key={category?.id}
             className="bg-[#E9EFFA] text-title p-2 rounded-xl border-[0.5px] border-heading flex items-center gap-5 min-w-32 justify-between"
           >
-            {editingIndex === index ? (
+            {editingIndex === category?.id ? (
               <input
                 type="text"
                 value={editValue}
                 onChange={(e) => setEditValue(e.target.value)}
-                onBlur={() => handleSaveEdit(index)}
+                // onBlur={() => handleSaveEdit()}
                 onKeyDown={(e) => {
-                  if (e.key === 'Enter') handleSaveEdit(index);
+                  if (e.key === 'Enter') handleSaveEdit(category?.id);
                   if (e.key === 'Escape') handleCancelEdit();
                 }}
                 autoFocus
                 className="bg-transparent appearance-none border-none outline-none text-title"
               />
             ) : (
-              <span className="font-medium">{cat.label}</span>
+              <span className="font-medium">{category?.name}</span>
             )}
 
+
             <div className="flex gap-2 text-title">
-              {editingIndex !== index && (
+              {editingIndex !== category?.id && (
                 <>
                   <button
-                    onClick={() => handleEdit(index)}
-                    className=""
+                    onClick={() => handleEdit(category?.id)}
                   >
                     <Pencil size={18} />
                   </button>
-                  <button
-                    onClick={() => handleDelete(index)}
-                    className=""
-                  >
+                  <button onClick={() => handleDelete(category?.id)}>
                     <Trash2 size={18} />
                   </button>
                 </>
               )}
-              {editingIndex === index && (
-                <button
-                  onClick={() => handleCancelEdit()}
-                  className="text-gray-600 text-xs"
-                >
-                  Cancel
-                </button>
+              {editingIndex === category?.id && (
+                <div className='flex items-center gap-2'>
+                  <button
+                    onClick={handleCancelEdit}
+                    className="text-gray-600 text-xs"
+                  >
+                    <X size={18} />
+                  </button>
+                  <button
+                    onClick={() => handleSaveEdit(category?.id)}
+                    className="text-gray-600 text-xs"
+                  >
+                    <IoCheckmark size={18} />
+                  </button>
+                </div>
               )}
             </div>
           </div>

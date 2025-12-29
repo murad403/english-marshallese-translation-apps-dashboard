@@ -15,7 +15,7 @@ const EditDataset = () => {
     const { register, handleSubmit, setValue, formState: { errors }} = useForm<TranslationFormData>();
     const {datasetId} = useParams();
     const {data} = useGetDatasetQuery({page: 1});
-    console.log(data)
+    console.log(typeof datasetId)
     // const currentDataset = 
     // console.log(datasetId);
 
