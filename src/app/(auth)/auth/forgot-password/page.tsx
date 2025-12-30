@@ -37,7 +37,7 @@ const ForgotPassword = () => {
                 <h2 className='text-header text-heading text-center'>Forgot Password</h2>
                 <div>
                     <label className='block font-medium text-subheading mb-2 text-header'>Email</label>
-                    <input type="text" {...register("email")} className='border border-border-color rounded-lg py-2 px-4 appearance-none outline-none w-full text-header' placeholder='Enter your email' />
+                    <input type="text" {...register("email")} className='border border-border-color rounded-lg py-2 px-4 appearance-none outline-none w-full text-header placeholder:select-none' placeholder='Enter your email' />
                     {errors.email && <p className="text-red-400 text-sm mt-1">{errors.email.message}</p>}
                 </div>
 

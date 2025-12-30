@@ -29,5 +29,20 @@ export async function proxy(request: NextRequest) {
 export const config = {
     matcher: [
         "/",
+        "/auth/:path*",
+        '/users',
+        "/ai-translation",
+        "/ai-translation/:path*",
+        "/manage-translation",
+        "/manage-translation/:path*",
+        "/upload-dataset",
+        "/upload-dataset/add-translation",
+        "/upload-dataset/add-category",
+        "/upload-dataset/:path*",
+        "/settings",
+        "/settings/change-password",
+        '/settings/terms-and-service',
+        "/settings/privacy-and-policy",
+        "/settings/about"
     ]
 };

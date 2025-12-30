@@ -46,7 +46,7 @@ const ResetPassword = () => {
                 <div>
                     <label className='block font-medium text-subheading mb-2 text-header'>Password</label>
                     <div className='relative'>
-                        <input {...register("new_password")} className='border border-border-color rounded-lg py-2 px-4 appearance-none outline-none w-full text-header' placeholder='Enter new password' />
+                        <input {...register("new_password")} className='border border-border-color rounded-lg py-2 px-4 appearance-none outline-none w-full text-header placeholder:select-none' placeholder='Enter new password' />
                         <div onClick={() => setShowPassword(!showPassword)} className="absolute top-3 text-xl right-3 text-title">
                             {
                                 showPassword ? <LuEye size={16} /> : <LuEyeOff size={16} />
@@ -58,7 +58,7 @@ const ResetPassword = () => {
                 <div>
                     <label className='block font-medium text-subheading mb-2 text-header'>Confirm password</label>
                     <div className='relative'>
-                        <input {...register("confirm_password")} className='border border-border-color rounded-lg py-2 px-4 appearance-none outline-none w-full text-header' placeholder='Confirm password' />
+                        <input {...register("confirm_password")} className='border border-border-color rounded-lg py-2 px-4 appearance-none outline-none w-full text-header placeholder:select-none' placeholder='Confirm password' />
                         <div onClick={() => setShowConfirmPassword(!showConfirmPassword)} className="absolute top-3 text-xl right-3 text-title">
                             {
                                 showConfirmPassword ? <LuEye size={16} /> : <LuEyeOff size={16} />

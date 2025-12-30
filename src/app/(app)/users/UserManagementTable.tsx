@@ -38,7 +38,7 @@ const UserManagementTable = () => {
                         <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                         <input
                             type="text"
-                            placeholder="Search by serial, name or email"
+                            placeholder="Search by name or email"
                             value={searchTerm}
                             onChange={handleSearch}
                             className="md:w-1/4 w-full pl-10 pr-4 bg-[#E9EFFA] py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-[1px] focus:ring-common"

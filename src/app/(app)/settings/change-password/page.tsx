@@ -41,7 +41,7 @@ const ChangePassword = () => {
                 <div>
                     <label className='block font-medium text-normal mb-2 text-header'>Old Password</label>
                     <div className='relative'>
-                        <input {...register("current_password")} type={showPassword ? "text" : "password"} className='border border-border-color rounded-lg py-2 px-4 appearance-none outline-none w-full text-header' placeholder='Enter your old password' />
+                        <input {...register("current_password")} type={showPassword ? "text" : "password"} className='border border-border-color rounded-lg py-2 px-4 appearance-none outline-none w-full text-header placeholder:select-none' placeholder='Enter your old password' />
                         <div onClick={() => setShowPassword(!showPassword)} className="absolute top-3 text-xl right-3 text-title">
                             {
                                 showPassword ? <LuEye size={16} /> : <LuEyeOff size={16} />
@@ -54,7 +54,7 @@ const ChangePassword = () => {
                 <div>
                     <label className='block font-medium text-normal mb-2 text-header'>New Password</label>
                     <div className='relative'>
-                        <input type={showNewPassword ? "text" : "password"} {...register("new_password")} className='border border-border-color rounded-lg py-2 px-4 appearance-none outline-none w-full text-header' placeholder='Enter your new password' />
+                        <input type={showNewPassword ? "text" : "password"} {...register("new_password")} className='border border-border-color rounded-lg py-2 px-4 appearance-none outline-none w-full text-header placeholder:select-none' placeholder='Enter your new password' />
                         <div onClick={() => setShowNewPassword(!showNewPassword)} className="absolute top-3 text-xl right-3 text-title">
                             {
                                 showNewPassword ? <LuEye size={16} /> : <LuEyeOff size={16} />
@@ -67,7 +67,7 @@ const ChangePassword = () => {
                 <div>
                     <label className='block font-medium text-normal mb-2 text-header'>Confirm New Password</label>
                     <div className='relative'>
-                        <input type={showConfirmNewPassword ? "text" : "password"} {...register("confirm_password")} className='border border-border-color rounded-lg py-2 px-4 appearance-none outline-none w-full text-header' placeholder='Confirm your password' />
+                        <input type={showConfirmNewPassword ? "text" : "password"} {...register("confirm_password")} className='border border-border-color rounded-lg py-2 px-4 appearance-none outline-none w-full text-header placeholder:select-none' placeholder='Confirm your password' />
                         <div onClick={() => setShowConfirmNewPassword(!showConfirmNewPassword)} className="absolute top-3 text-xl right-3 text-title">
                             {
                                 showConfirmNewPassword ? <LuEye size={16} /> : <LuEyeOff size={16} />
