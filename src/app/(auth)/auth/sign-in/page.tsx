@@ -35,6 +35,7 @@ const SignIn = () => {
             console.log(error)
         }
     }
+    // console.log(showPassword)
     return (
         <div className='w-full md:w-[50%] bg-main md:p-20 p-5 rounded-lg'>
             <form className='w-full space-y-5' onSubmit={handleSubmit(onSubmit)}>
@@ -47,7 +48,7 @@ const SignIn = () => {
                 <div>
                     <label className='block font-medium text-subheading mb-2 text-header'>Password</label>
                     <div className='relative'>
-                        <input {...register("password")} className='border border-border-color rounded-lg py-2 px-4 appearance-none outline-none w-full text-header placeholder:select-none' placeholder='Enter your password' />
+                        <input type={showPassword ? 'text' : "password"} {...register("password")} className='border border-border-color rounded-lg py-2 px-4 appearance-none outline-none w-full text-header placeholder:select-none' placeholder='Enter your password' />
                         <div onClick={() => setShowPassword(!showPassword)} className="absolute top-3 text-xl right-3 text-title">
                             {
                                 showPassword ? <LuEye size={16} /> : <LuEyeOff size={16} />

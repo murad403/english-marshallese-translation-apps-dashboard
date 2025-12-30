@@ -1,21 +1,35 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
-import { termsServiceValidationSchema } from '@/validation/auth.validation';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { useGetTermsAndServiceQuery, useUpdateTermsAndServiceMutation } from '@/redux/features/setting/setting.api';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import z from 'zod';
+import { toast } from 'react-toastify';
+import { useEffect } from 'react';
+import Loading from '@/components/shared/Loading';
 
-type TInputs = z.infer<typeof termsServiceValidationSchema>
+type TInputs = {
+    content: string
+}
 
 const TermsAndService = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm<TInputs>({
-        defaultValues: {
-            termsAndService: `Our app is designed to bridge the communication gap between English and Marshallese speakers. With a focus on both medical and everyday language, it provides fast, accurate, and user-friendly translations that help users understand and express themselves clearly. By combining a verified translation database with advanced AI suggestions, the platform ensures reliability and continuous improvement. Whether for healthcare professionals, students, or daily conversations, our goal is to make bilingual communication effortless and accessible to everyone while preserving the richness of the Marshallese language.`
-        },
-        resolver: zodResolver(termsServiceValidationSchema)
-    });
+    const { data } = useGetTermsAndServiceQuery(undefined);
+    const [updateTermsAndService, { isLoading }] = useUpdateTermsAndServiceMutation();
+    const { register, handleSubmit, setValue, formState: { errors } } = useForm<TInputs>();
 
-    const onSubmit: SubmitHandler<TInputs> = (data) => {
-        console.log("Updated Terms & Service:", data.termsAndService);
+    // Set default value when data loads
+    useEffect(() => {
+        if (data?.data?.content) {
+            setValue("content", data.data.content);
+        }
+    }, [data, setValue]);
+
+    const onSubmit: SubmitHandler<TInputs> = async (formData) => {
+        try {
+            const result = await updateTermsAndService(formData).unwrap();
+            toast.success(result?.message || "Terms & Service updated successfully");
+        } catch (error: any) {
+            toast.error(error?.data?.message || "Failed to update");
+            // console.log(error);
+        }
     }
 
     return (
@@ -27,24 +41,28 @@ const TermsAndService = () => {
                     </label>
                     
                     <textarea
-                        {...register("termsAndService")}
+                        {...register("content", {
+                            required: "Terms and Service content is required"
+                        })}
                         rows={12}
                         className='w-full border border-border-color rounded-lg py-3 px-4 appearance-none outline-none text-title resize-y'
+                        defaultValue={data?.data?.content}
                         placeholder='Write terms and service here...'
                     />
                     
-                    {errors.termsAndService && (
+                    {errors.content && (
                         <p className="text-red-500 text-sm mt-1">
-                            {errors.termsAndService.message}
+                            {errors.content.message}
                         </p>
                     )}
                 </div>
 
                 <button
                     type='submit'
-                    className='bg-common text-main py-2 rounded-lg w-full'
+                    disabled={isLoading}
+                    className='bg-common text-main py-2 rounded-lg w-full hover:bg-opacity-90 transition-colors disabled:opacity-50'
                 >
-                    Save Changes
+                    {isLoading ? <Loading /> : "Save Changes"}
                 </button>
             </form>
         </div>

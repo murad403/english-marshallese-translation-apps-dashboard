@@ -1,21 +1,34 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
-import { aboutValidationSchema } from '@/validation/auth.validation';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { useGetAboutUsQuery, useUpdateAboutUsMutation } from '@/redux/features/setting/setting.api';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import z from 'zod';
+import { toast } from 'react-toastify';
+import { useEffect } from 'react';
+import Loading from '@/components/shared/Loading';
 
-type TInputs = z.infer<typeof aboutValidationSchema>
+type TInputs = {
+    content: string
+}
 
 const About = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm<TInputs>({
-        defaultValues: {
-            about: `Our app is designed to bridge the communication gap between English and Marshallese speakers. With a focus on both medical and everyday language, it provides fast, accurate, and user-friendly translations that help users understand and express themselves clearly. By combining a verified translation database with advanced AI suggestions, the platform ensures reliability and continuous improvement. Whether for healthcare professionals, students, or daily conversations, our goal is to make bilingual communication effortless and accessible to everyone while preserving the richness of the Marshallese language.`
-        },
-        resolver: zodResolver(aboutValidationSchema)
-    });
+    const { data } = useGetAboutUsQuery(undefined);
+    const [updateAbout, { isLoading }] = useUpdateAboutUsMutation();
+    const { register, handleSubmit, setValue, formState: { errors } } = useForm<TInputs>();
 
-    const onSubmit: SubmitHandler<TInputs> = (data) => {
-        console.log("Updated Terms & Service:", data.about);
+    // Set default value when data loads
+    useEffect(() => {
+        if (data?.data?.content) {
+            setValue("content", data.data.content);
+        }
+    }, [data, setValue]);
+
+    const onSubmit: SubmitHandler<TInputs> = async (formData) => {
+        try {
+            const result = await updateAbout(formData).unwrap();
+            toast.success(result?.message || "About updated successfully");
+        } catch (error: any) {
+            toast.error(error?.data?.message || "Failed to update");
+        }
     }
 
     return (
@@ -27,24 +40,28 @@ const About = () => {
                     </label>
                     
                     <textarea
-                        {...register("about")}
+                        {...register("content", {
+                            required: "About content is required"
+                        })}
                         rows={12}
                         className='w-full border border-border-color rounded-lg py-3 px-4 appearance-none outline-none text-title resize-y'
-                        placeholder='Write terms and service here...'
+                        defaultValue={data?.data?.content}
+                        placeholder='Write about here...'
                     />
                     
-                    {errors.about && (
+                    {errors.content && (
                         <p className="text-red-500 text-sm mt-1">
-                            {errors.about.message}
+                            {errors.content.message}
                         </p>
                     )}
                 </div>
 
                 <button
                     type='submit'
-                    className='bg-common text-main py-2 rounded-lg w-full'
+                    disabled={isLoading}
+                    className='bg-common text-main py-2 rounded-lg w-full hover:bg-opacity-90 transition-colors disabled:opacity-50'
                 >
-                    Save Changes
+                    {isLoading ? <Loading /> : "Save Changes"}
                 </button>
             </form>
         </div>

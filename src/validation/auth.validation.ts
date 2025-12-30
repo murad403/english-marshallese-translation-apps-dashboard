@@ -19,19 +19,6 @@ export const forgotPasswordValidationSchema = z.object({
 })
 
 
-const commonPasswords = [
-  'password',
-  '12345678',
-  '123456789',
-  'qwerty123',
-  'password123',
-  'admin123',
-  'letmein',
-  'welcome',
-  'abc123',
-  'iloveyou',
-];
-
 export const resetPasswordValidationSchema = z
   .object({
     new_password: z
@@ -55,26 +42,48 @@ export const resetPasswordValidationSchema = z
   });
 
 
+const commonPasswords = [
+  "password",
+  "12345678",
+  "123456789",
+  "qwerty123",
+  "password123",
+  "admin123",
+  "letmein",
+  "welcome",
+  "abc123",
+  "iloveyou",
+  "11111111",
+  "00000000",
+  "12341234",
+  "1234567890",
+];
+
 export const changePasswordValidationSchema = z
   .object({
-    oldPassword: z
+    current_password: z
       .string()
       .min(1, { message: "Old password is required" }),
 
-    newPassword: z
+    new_password: z
       .string()
       .min(1, { message: "New password is required" })
-      .min(6, { message: "New password must be at least 6 characters" }),
+      .min(8, { message: "This password is too short. It must contain at least 8 characters." })
+      .refine((pwd) => !commonPasswords.includes(pwd.toLowerCase()), {
+        message: "This password is too common.",
+      })
+      .refine((pwd) => !/^\d+$/.test(pwd), {
+        message: "This password is entirely numeric.",
+      }),
 
-    confirmNewPassword: z
+    confirm_password: z
       .string()
       .min(1, { message: "Confirm new password is required" }),
   })
-  .refine((data) => data.newPassword === data.confirmNewPassword, {
+  .refine((data) => data.new_password === data.confirm_password, {
     message: "New passwords do not match",
-    path: ["confirmNewPassword"],
+    path: ["confirm_password"],
   });
-
 
 export const privacyPolicyValidationSchema = z.object({
   privacyAndPolicy: z

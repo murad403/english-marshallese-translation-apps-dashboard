@@ -4,8 +4,11 @@ import profile from "@/assets/admin.png";
 import { SidebarTrigger } from '../ui/sidebar';
 import { MdOutlineKeyboardBackspace } from 'react-icons/md';
 import { useRouter } from 'next/navigation';
+import { useGetProfileQuery } from '@/redux/features/setting/setting.api';
 
 const AdminHeader = ({ title, isShowBackButton = false }: { title: string, isShowBackButton?: boolean }) => {
+     const { data } = useGetProfileQuery(undefined);
+    //  console.log(data)
     const router = useRouter();
     return (
         <div>
@@ -17,10 +20,10 @@ const AdminHeader = ({ title, isShowBackButton = false }: { title: string, isSho
                             <MdOutlineKeyboardBackspace size={30}/>
                         </button>
                     }
-                    <h1 className='font-medium text-title md:text-heading text-subheading capitalize'>{title}</h1>
+                    <h1 className='font-medium text-title md:text-heading text-subheading capitalize'>{data?.data?.user_profile?.full_name}</h1>
                 </div>
                 <div>
-                    <Image src={profile} alt='admin' width={500} height={500} className='md:size-14 size-10' />
+                    <Image src={data?.data?.user_profile?.profile_picture || profile} alt='admin' width={500} height={500} className='md:size-14 size-10 rounded-full' />
                 </div>
             </div>
             <div className='md:hidden flex justify-start items-center mt-4 w-full'>
