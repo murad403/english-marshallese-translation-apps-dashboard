@@ -45,7 +45,7 @@ const TranslationManagementTable = () => {
                         <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                         <input
                             type="text"
-                            placeholder="Search by category or english text"
+                            placeholder="Search by english text"
                             value={searchTerm}
                             onChange={handleSearch}
                             className="md:w-2/4 w-full pl-10 pr-4 bg-[#E9EFFA] py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-[1px] focus:ring-common"
@@ -116,7 +116,7 @@ const TranslationManagementTable = () => {
                                                 <td className="px-6 py-5 md:text-normal text-small text-title bg-main">{item?.source_text}</td>
                                                 <td className="px-6 py-5 md:text-normal text-small text-title bg-main">{item?.known_translation}</td>
                                                 <td className="px-6 py-5 md:text-normal text-small text-title bg-main">{item?.notes}</td>
-                                                <td className={`px-6 py-5 bg-main ${index === 0 ? "rounded-tr-xl" : ""} md:space-x-5`}>
+                                                <td className={`pl-7 py-5 bg-main ${index === 0 ? "rounded-tr-xl" : ""} md:space-x-3`}>
                                                     <button className="text-gray-600 hover:text-common transition-colors">
                                                         <Link href={`/manage-translation/${item.id}`}>
                                                             <LiaEditSolid className="w-5 h-5" />

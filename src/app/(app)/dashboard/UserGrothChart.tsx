@@ -28,29 +28,29 @@ const UserGrothChart = () => {
 
     return (
         <Card className="w-full">
-            <CardContent className="p-3 sm:p-4 md:p-6">
+            <CardContent>
                 {/* Header */}
-                <div className="mb-4 sm:mb-6 md:mb-10 pb-3 sm:pb-4 md:pb-5 flex flex-col gap-3 sm:gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-[#BCCCEE]">
-                    <h2 className="text-subheading font-semibold text-header">
+                <div className="mb-4 pt-4 sm:mb-6 md:mb-10 pb-3 sm:pb-4 md:pb-5 flex flex-col gap-3 sm:gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-[#BCCCEE]">
+                    <h2 className="text-normal text-header">
                         User Growth ({total.toLocaleString()})
                     </h2>
                     <div className="flex flex-wrap items-center gap-3 sm:gap-4">
                         <button
                             onClick={() => handleFilterChange("month")}
-                            className={`text-normal transition-colors ${
+                            className={`text-small transition-colors ${
                                 filter === "month"
-                                    ? "border-b-2 border-common text-common font-medium"
-                                    : "text-gray-600 hover:text-gray-900"
+                                    ? "border-b-2 border-common text-common"
+                                    : "text-title hover:text-gray-900"
                             }`}
                         >
                             Month
                         </button>
                         <button
                             onClick={() => handleFilterChange("year")}
-                            className={`text-normal transition-colors ${
+                            className={`text-samll transition-colors ${
                                 filter === "year"
-                                    ? "border-b-2 border-common text-common font-medium"
-                                    : "text-gray-600 hover:text-gray-900"
+                                    ? "border-b-2 border-common text-common"
+                                    : "text-title hover:text-gray-900"
                             }`}
                         >
                             Year
@@ -59,7 +59,7 @@ const UserGrothChart = () => {
                 </div>
 
                 {/* Chart */}
-                <div className="h-60 sm:h-75 md:h-87.5 lg:h-140 w-full">
+                <div className="h-60 sm:h-75 md:h-85 lg:h-141 w-full pb-14">
                     {isLoading ? (
                         <div className="h-full flex items-center justify-center text-gray-500">
                             <div className="text-center">
@@ -102,7 +102,7 @@ const UserGrothChart = () => {
                                     dataKey="period"
                                     axisLine={false}
                                     tickLine={false}
-                                    tick={{ fill: "#6b7280", fontSize: window.innerWidth < 640 ? 10 : 13 }}
+                                    tick={{ fill: "#4A4A4A", fontSize: window.innerWidth < 640 ? 10 : 13 }}
                                     dy={10}
                                     interval="preserveStartEnd"
                                 />

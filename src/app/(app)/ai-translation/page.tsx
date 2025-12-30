@@ -4,7 +4,7 @@ import AitranslationManagementTable from './AitranslationManagementTable'
 const AiTranslation = () => {
   return (
     <div className='space-y-4'>
-      <AdminHeader title='Manage Translations'></AdminHeader>
+      <AdminHeader title='Ai Translations'></AdminHeader>
       <AitranslationManagementTable></AitranslationManagementTable>
     </div>
   )

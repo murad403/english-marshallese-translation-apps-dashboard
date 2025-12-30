@@ -8,7 +8,7 @@ const TranslationEdit = () => {
   const { translationId } = useParams();
   return (
     <div className='space-y-4'>
-      <AdminHeader title='View Translation Request' isShowBackButton></AdminHeader>
+      <AdminHeader title='Edit Submission Request' isShowBackButton></AdminHeader>
       <EditTranslationRequestHeader translationId={translationId}></EditTranslationRequestHeader>
       <EditTranslationRequest></EditTranslationRequest>
     </div>

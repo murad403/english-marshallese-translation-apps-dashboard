@@ -8,7 +8,7 @@ const AiTranslationEdit = () => {
     const {aiTranslationId} = useParams();
   return (
      <div className='space-y-4'>
-      <AdminHeader title='View Translation Request' isShowBackButton></AdminHeader>
+      <AdminHeader title='Edit Translation Request' isShowBackButton></AdminHeader>
       <AiTranslationRequestHeader aiTranslationId={aiTranslationId}></AiTranslationRequestHeader>
       <EditAiTranslation></EditAiTranslation>
     </div>

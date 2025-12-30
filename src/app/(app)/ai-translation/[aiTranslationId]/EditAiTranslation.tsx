@@ -47,7 +47,7 @@ const EditAiTranslation = () => {
                 }
             }).unwrap();
             toast.success(result?.message);
-            router.push("/manage-translation");
+            router.push("/ai-translation");
         } catch (error: any) {
             toast.error(error?.data?.message || "Please try again");
         }
@@ -97,7 +97,7 @@ const EditAiTranslation = () => {
 
                     {/* Source Text */}
                     <div className="bg-[#E9EFFA] p-5 rounded-xl">
-                        <label className="text-header font-medium text-subheading">Source Text</label>
+                        <label className="text-header font-medium text-subheading">English</label>
                         <input
                             {...register("source_text", { 
                                 required: "Source text is required" 
@@ -114,7 +114,7 @@ const EditAiTranslation = () => {
 
                     {/* Known Translation */}
                     <div className="bg-[#E9EFFA] p-5 rounded-xl">
-                        <label className="text-header font-medium text-subheading">Known Translation (If any)</label>
+                        <label className="text-header font-medium text-subheading">Marshallese</label>
                         <input
                             {...register("known_translation")}
                             defaultValue={data?.data?.known_translation}

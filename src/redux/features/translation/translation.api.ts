@@ -26,7 +26,8 @@ const translationApi = baseApi.injectEndpoints({
                     url: `/administration/submissions/${id}/`,
                     method: "GET"
                 }
-            }
+            },
+            providesTags: ["translation"]
         }),
         updateSubmission: builder.mutation({
             query: ({id, data}) =>{
@@ -63,7 +64,8 @@ const translationApi = baseApi.injectEndpoints({
                     url: `/administration/ai-feedback/${id}/`,
                     method: "GET"
                 }
-            }
+            },
+            providesTags: ["ai-submission"]
         }),
         updateAiTranslation: builder.mutation({
             query: ({id, data}) =>{

@@ -5,7 +5,7 @@ import TranslationManagementTable from './TranslationManagementTable'
 const ManageTranslation = () => {
   return (
     <div className='space-y-4'>
-      <AdminHeader title='Manage Translations'></AdminHeader>
+      <AdminHeader title='Submission'></AdminHeader>
       <TranslationManagementTable></TranslationManagementTable>
     </div>
   )

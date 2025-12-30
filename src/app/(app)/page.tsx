@@ -5,8 +5,8 @@ import RecentActivityTable from './dashboard/RecentActivityTable'
 
 const page = () => {
   return (
-    <div className='space-y-4 '>
-      <AdminHeader title='mr john'></AdminHeader>
+    <div className='space-y-4'>
+      <AdminHeader></AdminHeader>
       <Stats></Stats>
       <div className='flex flex-col md:flex-row gap-4 '>
         <div className='w-full md:w-2/3'>

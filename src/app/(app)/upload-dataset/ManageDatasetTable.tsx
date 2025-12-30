@@ -56,7 +56,7 @@ const ManageDatasetTable = () => {
                                             <td className="px-6 py-5 md:text-normal text-small text-title bg-main">{set?.english_text}</td>
                                             <td className="px-6 py-5 md:text-normal text-small text-title bg-main">{set?.marshallese_text}</td>
                                             <td className="px-6 py-5 md:text-normal text-small text-title bg-main">{set?.context}</td>
-                                            <td className={`px-6 py-5 bg-main ${index === 0 ? "rounded-tr-xl" : ""} md:space-x-5`}>
+                                            <td className={`pl-7 py-5 bg-main ${index === 0 ? "rounded-tr-xl" : ""} md:space-x-3`}>
                                                 <button className="text-gray-600 hover:text-common transition-colors">
                                                     <Link href={`/upload-dataset/${set?.id}`}>
                                                         <LiaEditSolid className="w-5 h-5" />

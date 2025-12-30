@@ -4,7 +4,6 @@ import { Trash2 } from "lucide-react"
 import { useDeleteRecentActivityMutation, useRecentActivityQuery } from "@/redux/features/dashboard/dashboard.api"
 import { TActivity } from "@/types/alltypes"
 import { toast } from "react-toastify"
-import Loading from "@/components/shared/Loading"
 
 
 const RecentActivityTable = () => {
@@ -22,11 +21,11 @@ const RecentActivityTable = () => {
     }
 
     return (
-        <div className="w-full rounded-lg bg-white px-4 sm:px-6 h-175 overflow-y-auto relative">
+        <div className="w-full rounded-lg bg-white px-4 sm:px-6 h-168 overflow-y-auto relative">
             {/* Header */}
             <div className="w-full bg-main sticky top-0">
                 <div className="py-5 flex items-center justify-between border-b border-[#BCCCEE]">
-                    <h2 className="text-subheading font-semibold text-header">Recent Activity</h2>
+                    <h2 className="text-normal text-header">Recent Activity</h2>
                 </div>
             </div>
 
