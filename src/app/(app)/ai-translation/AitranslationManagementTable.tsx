@@ -24,6 +24,7 @@ const AiTranslationManagementTable = () => {
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>): void => {
         setSearchTerm(e.target.value);
+         setCurrentPage(1);
     };
     const handlePreviousPage = () => {
         if (currentPage !== 1) {

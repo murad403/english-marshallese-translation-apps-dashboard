@@ -13,6 +13,7 @@ const TranslationManagementTable = () => {
     const [currentPage, setCurrentPage] = useState<number>(1);
     const { data, isLoading } = useGetSubmissionQuery({ page: currentPage, search: searchTerm });
     const {data: aiTranslationData, isLoading: aiTranslationLoading} = useGetAiTranslationQuery({ page: currentPage, search: searchTerm });
+    // console.log(data?.data?.page)
 
 
     // console.log(data?.data?.submissions);
@@ -25,6 +26,7 @@ const TranslationManagementTable = () => {
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>): void => {
         setSearchTerm(e.target.value);
+         setCurrentPage(1);
     };
     const handlePreviousPage = () => {
         if (currentPage !== 1) {

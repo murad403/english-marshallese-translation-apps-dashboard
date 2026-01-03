@@ -11,13 +11,15 @@ const UserManagementTable = () => {
     const [currentPage, setCurrentPage] = useState<number>(1);
 
     const { data, isLoading } = useGetUsersQuery({ page: currentPage, search: searchTerm });
-    // console.log(data?.data);
+    // console.log(data?.data?.page);
 
     const totalPages = Math.ceil(data?.data?.total / data?.data?.limit);
     // console.log(totalPages);
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>): void => {
         setSearchTerm(e.target.value);
+        setCurrentPage(1);
+        // console.log(e.target.value);
     };
     const handlePreviousPage = () => {
         if (currentPage !== 1) {
