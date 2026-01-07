@@ -11,6 +11,7 @@ import { toast } from 'react-toastify';
 const AddCategory = () => {
   const { data } = useGetCategoriesQuery(undefined);
   const categories = data?.data?.categories;
+  // console.log(categories);
   const [addCategory] = useAddCategoryMutation();
   const [deleteCategory] = useDeleteCategoryMutation();
   const [updateCategory] = useUpdateCategoryMutation();

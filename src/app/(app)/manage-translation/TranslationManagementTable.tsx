@@ -12,7 +12,7 @@ const TranslationManagementTable = () => {
     const [searchTerm, setSearchTerm] = useState<string>("");
     const [currentPage, setCurrentPage] = useState<number>(1);
     const { data, isLoading } = useGetSubmissionQuery({ page: currentPage, search: searchTerm });
-    const {data: aiTranslationData, isLoading: aiTranslationLoading} = useGetAiTranslationQuery({ page: currentPage, search: searchTerm });
+    const {data: aiTranslationData} = useGetAiTranslationQuery({ page: currentPage, search: searchTerm });
     // console.log(data?.data?.page)
 
 
@@ -84,83 +84,100 @@ const TranslationManagementTable = () => {
                     </div> :
                         <div>
                             {
-                                data ? <div className="overflow-x-auto">
-                                <table className="w-full">
-                                    <thead>
-                                        <tr className="bg-[#E9EFFA]">
-                                            <th className="px-6 py-4 text-left text-normal md:text-subheading text-header font-medium text-nowrap">User ID</th>
-                                            <th className="px-6 py-4 text-left text-normal md:text-subheading text-header font-medium">Date</th>
-                                            <th className="px-6 py-4 text-left text-normal md:text-subheading text-header font-medium">Status</th>
-                                            <th className="px-6 py-4 text-left text-normal md:text-subheading text-header font-medium">Category</th>
-                                            <th className="px-6 py-4 text-left text-normal md:text-subheading text-header font-medium">English</th>
-                                            <th className="px-6 py-4 text-left text-normal md:text-subheading text-header font-medium">Marshallese</th>
-                                            <th className="px-6 py-4 text-left text-normal md:text-subheading text-header font-medium">Context/Note</th>
-                                            <th className="px-6 py-4 text-left text-normal md:text-subheading text-header font-medium">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {translationData?.map((item: TTranslation, index: number) => (
-                                            <tr
-                                                key={item.id}
-                                                className="border-b border-gray-200 hover:bg-gray-50 transition-colors"
-                                            >
-                                                <td className={`px-6 py-5 md:text-normal text-small text-title bg-main pl-8 ${index === 0 ? "rounded-tl-xl" : ""}`}>
-                                                    #{item.id}
-                                                </td>
-                                                <td className="px-6 py-5 md:text-normal text-small text-title bg-main text-nowrap">{item?.created_date}</td>
-                                                <td className="px-6 py-5 md:text-normal text-small text-title bg-main">
-                                                    <span className={`${item?.status == 'pending' ? 'text-[#B35006]' : 'text-[#0C9721]'
-                                                        }`}>
-                                                        {item?.status}
-                                                    </span>
-                                                </td>
-                                                <td className="px-6 py-5 md:text-normal text-small text-title bg-main">{item?.category_details?.name}</td>
-                                                <td className="px-6 py-5 md:text-normal text-small text-title bg-main">{item?.source_text}</td>
-                                                <td className="px-6 py-5 md:text-normal text-small text-title bg-main">{item?.known_translation}</td>
-                                                <td className="px-6 py-5 md:text-normal text-small text-title bg-main">{item?.notes}</td>
-                                                <td className={`pl-7 py-5 bg-main ${index === 0 ? "rounded-tr-xl" : ""} md:space-x-3`}>
-                                                    <button className="text-gray-600 hover:text-common transition-colors">
-                                                        <Link href={`/manage-translation/${item.id}`}>
-                                                            <LiaEditSolid className="w-5 h-5" />
-                                                        </Link>
-                                                    </button>
-                                                    <button
-                                                        onClick={() => (document.getElementById('my_modal_4') as HTMLDialogElement).showModal()}
-                                                        className="text-gray-600 hover:text-red-600 transition-colors"
+                                translationData && translationData.length > 0 ? 
+                                <div>
+                                    <div className="overflow-x-auto">
+                                        <table className="w-full rounded-xl">
+                                            <thead>
+                                                <tr className="bg-[#E9EFFA] *:py-5">
+                                                    <th className="px-6 text-left text-normal md:text-subheading text-header font-medium text-nowrap">User ID</th>
+                                                    <th className="px-6 text-left text-normal md:text-subheading text-header font-medium">Date</th>
+                                                    <th className="px-6 text-left text-normal md:text-subheading text-header font-medium">Status</th>
+                                                    <th className="px-6 text-left text-normal md:text-subheading text-header font-medium">Category</th>
+                                                    <th className="px-6 text-left text-normal md:text-subheading text-header font-medium">English</th>
+                                                    <th className="px-6 text-left text-normal md:text-subheading text-header font-medium">Marshallese</th>
+                                                    <th className="px-6 text-left text-normal md:text-subheading text-header font-medium">Context/Note</th>
+                                                    <th className="px-6 text-left text-normal md:text-subheading text-header font-medium">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {translationData?.map((item: TTranslation, index: number) => (
+                                                    <tr
+                                                        key={item.id}
+                                                        className="border-b border-gray-200 hover:bg-gray-50 transition-colors"
                                                     >
-                                                        <Trash2 className="w-5 h-5" />
-                                                    </button>
-                                                    <TranslationDeleteModal id={item?.id}></TranslationDeleteModal>
-                                                </td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            </div> : <p className="text-sm sm:text-base text-gray-500 text-center">No data found</p>
+                                                        <td className={`px-6 py-5 md:text-normal text-small text-title bg-main pl-8 ${index === 0 ? "rounded-tl-xl" : ""}`}>
+                                                            #{item.id}
+                                                        </td>
+                                                        <td className="px-6 py-5 md:text-normal text-small text-title bg-main text-nowrap">{item?.created_date}</td>
+                                                        <td className="px-6 py-5 md:text-normal text-small text-title bg-main">
+                                                            <span className={`${item?.status == 'pending' ? 'text-[#B35006]' : 'text-[#0C9721]'
+                                                                }`}>
+                                                                {item?.status}
+                                                            </span>
+                                                        </td>
+                                                        <td className="px-6 py-5 md:text-normal text-small text-title bg-main">{item?.category_details?.name}</td>
+                                                        <td className="px-6 py-5 md:text-normal text-small text-title bg-main">{item?.source_text}</td>
+                                                        <td className="px-6 py-5 md:text-normal text-small text-title bg-main">{item?.known_translation}</td>
+                                                        <td className="px-6 py-5 md:text-normal text-small text-title bg-main">{item?.notes}</td>
+                                                        <td className={`pl-7 py-5 bg-main ${index === 0 ? "rounded-tr-xl" : ""} md:space-x-3`}>
+                                                            <button className="text-gray-600 hover:text-common transition-colors">
+                                                                <Link href={`/manage-translation/${item.id}`}>
+                                                                    <LiaEditSolid className="w-5 h-5" />
+                                                                </Link>
+                                                            </button>
+                                                            <button
+                                                                onClick={() => (document.getElementById('my_modal_4') as HTMLDialogElement).showModal()}
+                                                                className="text-gray-600 hover:text-red-600 transition-colors"
+                                                            >
+                                                                <Trash2 className="w-5 h-5" />
+                                                            </button>
+                                                            <TranslationDeleteModal id={item?.id}></TranslationDeleteModal>
+                                                        </td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div className="px-6 py-4 bg-main rounded-b-xl flex items-center justify-between">
+                                        <div className="text-normal text-title">
+                                            Page {currentPage} of {totalPages}
+                                        </div>
+                                        <div className="flex gap-2">
+                                            <button
+                                                onClick={handlePreviousPage}
+                                                disabled={currentPage === 1}
+                                                className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                                            >
+                                                Previous
+                                            </button>
+                                            <button
+                                                onClick={handleNextPage}
+                                                disabled={totalPages == currentPage}
+                                                className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                                            >
+                                                Next
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                : <div className="flex flex-col items-center justify-center py-16 px-6">
+                                    <div className="bg-gray-200 border-2 border-dashed rounded-xl w-32 h-32 mb-6 flex items-center justify-center">
+                                        <svg className="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+                                        </svg>
+                                    </div>
+                                    <h3 className="text-xl font-semibold text-title mb-2">
+                                        {searchTerm ? "No translations found" : "No translations yet"}
+                                    </h3>
+                                    <p className="text-sm text-muted-foreground text-center max-w-md">
+                                        {searchTerm
+                                            ? `We couldn't find any translations matching "${searchTerm}". Try a different search term.`
+                                            : "There are currently no translations in the system. Translations will appear here once they are submitted."
+                                        }
+                                    </p>
+                                </div>
                             }
-
-
-                            <div className="px-6 py-4 bg-main rounded-b-xl flex items-center justify-between">
-                                <div className="text-normal text-title">
-                                    Page {currentPage} of {totalPages}
-                                </div>
-                                <div className="flex gap-2">
-                                    <button
-                                        onClick={handlePreviousPage}
-                                        disabled={currentPage === 1}
-                                        className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                                    >
-                                        Previous
-                                    </button>
-                                    <button
-                                        onClick={handleNextPage}
-                                        disabled={totalPages == currentPage}
-                                        className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                                    >
-                                        Next
-                                    </button>
-                                </div>
-                            </div>
                         </div>
                 }
             </div>
