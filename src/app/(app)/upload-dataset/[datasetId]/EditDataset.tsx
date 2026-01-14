@@ -19,11 +19,14 @@ type TranslationFormData = {
 const EditDataset = () => {
     const { data: categoriesData } = useGetCategoriesQuery(undefined);
     const categories = categoriesData?.data?.categories;
-    const { register, handleSubmit, setValue, formState: { errors } } = useForm<TranslationFormData>();
+    const { register, handleSubmit, setValue, watch, formState: { errors } } = useForm<TranslationFormData>();
     const { datasetId } = useParams();
     const { data } = useGetTranslationDetailsQuery({ id: datasetId }, { skip: !datasetId });
     const [updateTranslation, {isLoading}] = useUpdateTranslationMutation();
     const router = useRouter();
+    
+    // Watch the category value to keep Select component in sync
+    const selectedCategory = watch("category");
 
     // Set all default values when data loads
     useEffect(() => {
@@ -59,13 +62,13 @@ const EditDataset = () => {
                     <div className="bg-[#E9EFFA] p-5 rounded-xl">
                         <label className="text-header font-medium text-subheading">Type / Category</label>
                         <Select
-                            value={data?.data?.category ? String(data.data.category) : undefined}
+                            value={selectedCategory}
                             onValueChange={(value) => setValue("category", value, {
                                 shouldValidate: true
                             })}
                         >
                             <SelectTrigger className="bg-[#BCCCEE] mt-3 w-full text-title text-normal">
-                                <SelectValue placeholder={data?.data?.category_details?.name || "Select One"} />
+                                <SelectValue placeholder="Select One" />
                             </SelectTrigger>
                             <SelectContent className='text-normal'>
                                 {
@@ -132,9 +135,7 @@ const EditDataset = () => {
                 <div className="bg-[#E9EFFA] p-5 rounded-xl">
                     <label className="text-header font-medium text-subheading">Add context or notes</label>
                     <textarea
-                        {...register("context", {
-                            required: "Context is required"
-                        })}
+                        {...register("context")}
                         defaultValue={data?.data?.context}
                         rows={6}
                         className="w-full py-3 rounded-lg outline-none placeholder:text-title px-4 bg-[#BCCCEE] text-title text-normal mt-3"

@@ -24,7 +24,10 @@ const EditAiTranslation = () => {
     const { data } = useGetAiTranslationDetailsQuery(aiTranslationId);
     const [updateAiTranslation, { isLoading }] = useUpdateAiTranslationMutation();
     const router = useRouter();
-    const { register, handleSubmit, setValue, formState: { errors } } = useForm<TranslationFormData>();
+    const { register, handleSubmit, setValue, watch, formState: { errors } } = useForm<TranslationFormData>();
+    
+    // Watch the category value to keep Select component in sync
+    const selectedCategory = watch("category");
 
     // Set all default values when data loads
     useEffect(() => {
@@ -61,13 +64,13 @@ const EditAiTranslation = () => {
                     <div className="bg-[#E9EFFA] p-5 rounded-xl">
                         <label className="text-header font-medium text-subheading">Type / Category</label>
                         <Select
-                            value={data?.data?.category ? String(data.data.category) : undefined}
+                            value={selectedCategory}
                             onValueChange={(value) => setValue("category", value, {
                                 shouldValidate: true
                             })}
                         >
                             <SelectTrigger className="bg-[#BCCCEE] mt-3 w-full text-title text-normal">
-                                <SelectValue placeholder={data?.data?.category_details?.name || "Select One"} />
+                                <SelectValue placeholder="Select One" />
                             </SelectTrigger>
                             <SelectContent className='text-normal'>
                                 {

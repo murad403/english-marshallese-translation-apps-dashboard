@@ -4,17 +4,15 @@ import React, { useState } from 'react';
 import { Search, Trash2 } from 'lucide-react';
 import Link from 'next/link';
 import { TTranslation } from "@/types/alltypes";
-import { useGetAiTranslationQuery, useGetSubmissionQuery } from "@/redux/features/translation/translation.api";
+import { useGetAiTranslationQuery } from "@/redux/features/translation/translation.api";
 import AiTranslationDeleteModal from "@/components/modal/AitranslationDeleteModal";
 
 const AiTranslationManagementTable = () => {
     const [searchTerm, setSearchTerm] = useState<string>("");
     const [currentPage, setCurrentPage] = useState<number>(1);
-    const { data } = useGetSubmissionQuery({ page: currentPage, search: searchTerm });
+    // const { data } = useGetSubmissionQuery({ page: currentPage, search: searchTerm });
     const { data: aiTranslationData, isLoading: aiTranslationLoading } = useGetAiTranslationQuery({ page: currentPage, search: searchTerm });
     // console.log(aiTranslationData?.data?.feedback_items);
-
-    const [activeTab, setActiveTab] = useState<'submission' | 'translation'>('translation');
 
 
     const translationData = aiTranslationData?.data?.feedback_items;
@@ -52,25 +50,12 @@ const AiTranslationManagementTable = () => {
                         />
                     </div>
 
-                    <div className="flex md:justify-end justify-center gap-2 w-full">
-                        <Link href={"/manage-translation"}
-                            onClick={() => setActiveTab('submission')}
-                            className={`px-4 py-2 rounded-md md:text-normal text-small font-medium transition-colors ${activeTab === 'submission'
-                                ? 'bg-common text-white'
-                                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                                }`}
-                        >
-                            Submission ({data?.data?.total})
-                        </Link>
-                        <Link href={"/ai-translation"}
-                            onClick={() => setActiveTab('translation')}
-                            className={`px-4 py-2 rounded-md md:text-normal text-small font-medium transition-colors ${activeTab === 'translation'
-                                ? 'bg-common text-white'
-                                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                                }`}
+                    <div className="flex md:justify-end gap-2 w-full">
+                        <div
+                            className={`px-4 py-2 rounded-md md:text-normal text-small font-medium transition-colors bg-common text-white`}
                         >
                             AI Translation ({aiTranslationData?.data?.total})
-                        </Link>
+                        </div>
                     </div>
 
                 </div>

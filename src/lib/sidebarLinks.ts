@@ -16,7 +16,7 @@ export type TLink = {
 export const sidebarLinks: TLink[] = [
     {id: 1, title: "dashboard", route: "/", icon: MdOutlineDashboard},
     {id: 2, title: "users", route: "/users", icon: FaUsers },
-    {id: 3, title: "manage translation", route: "/manage-translation", icon: TfiWorld},
+    {id: 3, title: "manage translation", route: "/ai-translation", icon: TfiWorld},
     {id: 4, title: "Upload Dataset", route: "/upload-dataset", icon: VscFolder},
     {id: 5, title: "Settings", route: "/settings", icon: IoSettingsOutline},
 ]

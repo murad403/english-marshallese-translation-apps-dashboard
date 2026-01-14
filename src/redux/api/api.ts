@@ -5,7 +5,7 @@ import { getCurrentUser } from "@/utils/auth";
 
 // base query-----------------------------------------------------------------------------------------------
 const baseQuery = fetchBaseQuery({
-    baseUrl: "https://db926d6p-8000.asse.devtunnels.ms/api",
+    baseUrl: "http://10.10.12.28:8051/api",
     prepareHeaders: async(headers, { getState }) => {
         const {access} = await getCurrentUser();
         if (access) {
