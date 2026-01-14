@@ -26,6 +26,7 @@ const EditDataset = () => {
     const router = useRouter();
     
     // Watch the category value to keep Select component in sync
+    // eslint-disable-next-line react-hooks/incompatible-library
     const selectedCategory = watch("category");
 
     // Set all default values when data loads

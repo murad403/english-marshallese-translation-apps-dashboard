@@ -6,6 +6,7 @@ import { MdOutlineKeyboardBackspace } from 'react-icons/md';
 import { useRouter } from 'next/navigation';
 import { useGetProfileQuery } from '@/redux/features/setting/setting.api';
 import Link from 'next/link';
+import { IoNotificationsOutline } from 'react-icons/io5';
 
 const AdminHeader = ({ title, isShowBackButton = false }: { title?: string, isShowBackButton?: boolean }) => {
     const { data } = useGetProfileQuery(undefined);
@@ -34,9 +35,24 @@ const AdminHeader = ({ title, isShowBackButton = false }: { title?: string, isSh
                         }
                     </div>
                 </div>
-                <Link href={"/settings"}>
-                    <Image src={data?.data?.user_profile?.profile_picture || profile} alt='admin' width={500} height={500} className='md:size-14 size-10 rounded-full' />
-                </Link>
+                <div className='flex items-center gap-4'>
+                    <Link href={"/notification"} className='relative group'>
+                        <IoNotificationsOutline size={40} />
+                        {/* Notification Badge */}
+                        <span className='absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center'>
+                            5
+                        </span>
+                        {/* Tooltip */}
+                        <span className='absolute -bottom-12 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-sm px-3 py-2 rounded-lg whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50'>
+                            You have 5 new notifications
+                            {/* Arrow */}
+                            <span className='absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-gray-800 rotate-45'></span>
+                        </span>
+                    </Link>
+                    <Link href={"/settings"}>
+                        <Image src={data?.data?.user_profile?.profile_picture || profile} alt='admin' width={500} height={500} className='md:size-14 size-10 rounded-full' />
+                    </Link>
+                </div>
             </div>
             <div className='md:hidden flex justify-start items-center mt-4 w-full'>
                 <div className='flex justify-start'>
