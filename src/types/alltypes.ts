@@ -1,18 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export type TActivity = {
-    id: number
-    activity_type: string
-    activity_type_display: string
-    description: string
-    user_email: string
-    user_name: string
-    time_ago: string
-    is_read: boolean
-    created_date: string
+  id: number
+  activity_type: string
+  activity_type_display: string
+  description: string
+  user_email: string
+  user_name: string
+  time_ago: string
+  is_read: boolean
+  created_date: string
 }
 
 
-export type  TUser = {
+export type TUser = {
   id: number
   user_id: string
   user_name: string
@@ -68,3 +68,12 @@ export type TTranslation = {
   updated_date: string
 }
 
+
+export type TNotification = {
+  id: number
+  english_text: string
+  marshallese_text: string
+  category: string
+  created_date: string
+  user_email: string
+}
