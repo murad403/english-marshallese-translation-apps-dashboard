@@ -26,7 +26,6 @@ const EditAiTranslation = () => {
     const router = useRouter();
     const { register, handleSubmit, setValue, watch, formState: { errors } } = useForm<TranslationFormData>();
     
-    // Watch the category value to keep Select component in sync
     // eslint-disable-next-line react-hooks/incompatible-library
     const selectedCategory = watch("category");
 
