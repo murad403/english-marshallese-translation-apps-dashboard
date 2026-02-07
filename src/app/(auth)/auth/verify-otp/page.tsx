@@ -75,7 +75,7 @@ const VerifyOtp = () => {
     //     setTimeLeft(30);
     // }
     return (
-        <div className='w-full md:w-[50%] bg-main md:p-20 p-5 rounded-lg'>
+        <div className='w-full md:w-[35%] bg-main md:p-20 p-5 rounded-lg'>
             <form className='w-full space-y-5' onSubmit={onsubmit}>
                 <h2 className='text-header text-heading text-center'>Verify Email</h2>
                 <div className='flex md:justify-center justify-between md:gap-3 mb-4'>
