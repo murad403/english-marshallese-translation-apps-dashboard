@@ -35,7 +35,7 @@ const ResetPassword = () => {
             dispatch(setUser({user: null, otp: null}));
         } catch (error: any) {
             console.log(error);
-            toast.error(error?.data?.errors?.email?.[0]);
+            toast.error("Failed to reset password");
         }
         // console.log({...data, email: user, otp})
     }

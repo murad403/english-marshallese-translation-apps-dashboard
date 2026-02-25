@@ -31,7 +31,7 @@ const SignIn = () => {
             toast.success(result?.message);
         } catch (error: any) {
             // console.log(error?.data?.details?.credentials?.[0]);
-            toast.error(error?.data?.errors?.credentials?.[0]);
+            toast.error("Invalid credentials");
             console.log(error)
         }
     }

@@ -3,7 +3,7 @@ import { getCurrentUser } from "@/utils/auth";
 
 // base query-----------------------------------------------------------------------------------------------
 const baseQuery = fetchBaseQuery({
-    baseUrl: "http://10.10.12.28:8051/api",
+    baseUrl: "https://api.hnl-ls.com/api",
     prepareHeaders: async(headers) => {
         const {access} = await getCurrentUser();
         if (access) {

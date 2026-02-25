@@ -64,8 +64,7 @@ const VerifyOtp = () => {
             dispatch(setUser({user: user, otp: originalOtp}));
             router.push("/auth/reset-password");
         } catch (error: any) {
-            console.log(error);
-            toast.error(error?.data?.errors?.otp?.[0] || error?.data?.errors?.email?.[0])
+            toast.error("Failed to verify OTP");
         } 
         // router.push('/auth/reset-password')
     };

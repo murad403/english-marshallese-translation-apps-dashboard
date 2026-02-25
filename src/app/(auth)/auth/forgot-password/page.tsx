@@ -28,7 +28,7 @@ const ForgotPassword = () => {
             toast.success(result?.message);
             router.push("/auth/verify-otp");
         } catch (error: any) {
-            toast.error(error?.data?.errors?.email?.[0]);
+            toast.error("Failed to send OTP");
         }
     }
     return (
