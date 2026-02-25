@@ -32,7 +32,7 @@ const SignIn = () => {
         } catch (error: any) {
             // console.log(error?.data?.details?.credentials?.[0]);
             toast.error("Invalid credentials");
-            console.log(error)
+            // console.log(error)
         }
     }
     // console.log(showPassword)

@@ -34,7 +34,7 @@ const ResetPassword = () => {
             router.push("/auth/sign-in");
             dispatch(setUser({user: null, otp: null}));
         } catch (error: any) {
-            console.log(error);
+            // console.log(error);
             toast.error("Failed to reset password");
         }
         // console.log({...data, email: user, otp})
