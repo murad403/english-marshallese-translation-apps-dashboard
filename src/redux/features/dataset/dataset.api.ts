@@ -3,7 +3,15 @@ import baseApi from "@/redux/api/api";
 const datasetApi = baseApi.injectEndpoints({
     endpoints: (builder) =>({
         getTranslation: builder.query({
-            query: ({page}) =>{
+            query: ({page, category, search, searchTerm}) =>{
+                const searchValue = search ?? searchTerm ?? "";
+                if (category) {
+                    return {
+                        url: `/administration/translations/?category=${category}&page=${page}&search=${encodeURIComponent(searchValue)}`,
+                        method: "GET"
+                    }
+                }
+
                 return {
                     url: `/administration/translations/page/${page}/`,
                     method: "GET"

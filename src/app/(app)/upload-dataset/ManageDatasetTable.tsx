@@ -1,19 +1,28 @@
 "use client";
 import { LiaEditSolid } from "react-icons/lia";
 import React, { useState } from 'react';
-import { Trash2 } from 'lucide-react';
+import { Search, Trash2 } from 'lucide-react';
 import Link from 'next/link';
 import ManageDatasetHeader from "./ManageDatasetHeader";
 import DatasetDeleteModal from "@/components/modal/DatasetDeleteModal";
-import { TDataset } from "@/types/alltypes";
+import { TCategory, TDataset } from "@/types/alltypes";
 import { useGetFilterCategoryQuery, useGetTranslationQuery } from "@/redux/features/dataset/dataset.api";
 
 const ManageDatasetTable = () => {
+    const [searchTerm, setSearchTerm] = useState<string>("");
     const [currentPage, setCurrentPage] = useState<number>(1);
-    const { data, isLoading } = useGetTranslationQuery({ page: currentPage });
+    const [selectedCategoryId, setSelectedCategoryId] = useState<string>("all");
+    const { data, isLoading } = useGetTranslationQuery({
+        page: currentPage,
+        category: selectedCategoryId === "all" ? undefined : Number(selectedCategoryId),
+        searchTerm,
+    });
+    console.log(searchTerm)
     const totalPages = data?.data?.pagination?.total_pages;
     const { data: filterCategoryData } = useGetFilterCategoryQuery(undefined);
-    console.log(filterCategoryData?.data)
+    const categoryOptions = (filterCategoryData?.data || []) as TCategory[];
+
+    const formatCategoryName = (name: string) => name.replace(/_/g, " ");
 
 
     const handlePreviousPage = () => {
@@ -26,13 +35,47 @@ const ManageDatasetTable = () => {
             setCurrentPage(currentPage + 1)
         }
     }
+
+    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>): void => {
+        setSearchTerm(e.target.value);
+        setCurrentPage(1);
+    };
     return (
         <div className="w-full">
             <div className="overflow-hidden">
                 <ManageDatasetHeader></ManageDatasetHeader>
 
-                <div className="p-4 ">
-                    <h2 className="text-xl md:text-2xl font-medium">Filter by category</h2>
+                <div className="p-4 flex flex-col gap-4 md:flex-row md:items-center">
+                    <div className="relative w-full md:max-w-md">
+                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                        <input
+                            type="text"
+                            placeholder="Search here..."
+                            value={searchTerm}
+                            onChange={handleSearch}
+                            className="w-full pl-10 pr-4 bg-[#E9EFFA] py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-[1px] focus:ring-common"
+                        />
+                    </div>
+                    <div className="flex items-center gap-4 md:shrink-0">
+                        <h2 className="text-lg md:text-xl text-title font-medium whitespace-nowrap">Filter by category:</h2>
+                        <div className="w-full max-w-sm">
+                            <select
+                                value={selectedCategoryId}
+                                onChange={(e) => {
+                                    setSelectedCategoryId(e.target.value);
+                                    setCurrentPage(1);
+                                }}
+                                className="w-full min-w-55 px-4 py-2.5 border border-gray-300 rounded-md bg-white text-title focus:outline-none focus:ring-2 focus:ring-common"
+                            >
+                                <option value="all">All categories</option>
+                                {categoryOptions.map((category) => (
+                                    <option key={category.id} value={category.id}>
+                                        {formatCategoryName(category.name)}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
                 </div>
 
                 {
@@ -122,7 +165,7 @@ const ManageDatasetTable = () => {
                     </div>
                 }
             </div>
-        </div>
+        </div >
     )
 }
 
