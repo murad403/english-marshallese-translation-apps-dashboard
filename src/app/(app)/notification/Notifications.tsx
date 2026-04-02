@@ -6,6 +6,7 @@ import { IoNotificationsOutline } from 'react-icons/io5'
 
 const Notifications = () => {
   const { data, isLoading } = useNotificationQuery(undefined);
+  console.log(data)
 
   return (
     <div >

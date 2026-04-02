@@ -90,7 +90,17 @@ const datasetApi = baseApi.injectEndpoints({
             },
             invalidatesTags: ["category"]
         }),
+
+        getFilterCategory: builder.query({
+            query: () =>{
+                return {
+                    url: `/core/categories/manage/`,
+                    method: "GET"
+                }
+            },
+            providesTags: ["category"]
+        })
     })
 })
 
-export const {useGetTranslationQuery, useDeleteTranslationMutation, useUpdateTranslationMutation, useAddTranslationMutation, useGetCategoriesQuery, useAddCategoryMutation, useDeleteCategoryMutation, useUpdateCategoryMutation, useGetTranslationDetailsQuery} = datasetApi;
+export const {useGetTranslationQuery, useDeleteTranslationMutation, useUpdateTranslationMutation, useAddTranslationMutation, useGetCategoriesQuery, useAddCategoryMutation, useDeleteCategoryMutation, useUpdateCategoryMutation, useGetTranslationDetailsQuery, useGetFilterCategoryQuery} = datasetApi;

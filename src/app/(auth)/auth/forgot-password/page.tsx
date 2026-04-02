@@ -33,7 +33,7 @@ const ForgotPassword = () => {
         }
     }
     return (
-        <div className='w-full md:w-[35%] bg-main md:p-20 p-5 rounded-lg'>
+        <div className='w-full md:w-[35%] bg-main md:p-10 p-5 rounded-lg'>
             <form className='w-full space-y-5' onSubmit={handleSubmit(onSubmit)}>
                 <h2 className='text-header text-heading text-center'>Forgot Password</h2>
                 <div>
