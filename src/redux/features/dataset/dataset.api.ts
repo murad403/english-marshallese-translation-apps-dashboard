@@ -4,10 +4,22 @@ const datasetApi = baseApi.injectEndpoints({
     endpoints: (builder) =>({
         getTranslation: builder.query({
             query: ({page, category, search, searchTerm}) =>{
-                const searchValue = search ?? searchTerm ?? "";
-                if (category) {
+                const searchValue = (search ?? searchTerm ?? "").trim();
+
+                if (category || searchValue) {
+                    const params = new URLSearchParams();
+                    params.set("page", String(page));
+
+                    if (category) {
+                        params.set("category", String(category));
+                    }
+
+                    if (searchValue) {
+                        params.set("search", searchValue);
+                    }
+
                     return {
-                        url: `/administration/translations/?category=${category}&page=${page}&search=${encodeURIComponent(searchValue)}`,
+                        url: `/administration/translations/?${params.toString()}`,
                         method: "GET"
                     }
                 }

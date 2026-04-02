@@ -13,9 +13,9 @@ const ManageDatasetTable = () => {
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [selectedCategoryId, setSelectedCategoryId] = useState<string>("all");
     const { data, isLoading } = useGetTranslationQuery({
+        searchTerm,
         page: currentPage,
         category: selectedCategoryId === "all" ? undefined : Number(selectedCategoryId),
-        searchTerm,
     });
     console.log(searchTerm)
     const totalPages = data?.data?.pagination?.total_pages;
@@ -46,16 +46,6 @@ const ManageDatasetTable = () => {
                 <ManageDatasetHeader></ManageDatasetHeader>
 
                 <div className="p-4 flex flex-col gap-4 md:flex-row md:items-center">
-                    <div className="relative w-full md:max-w-md">
-                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                        <input
-                            type="text"
-                            placeholder="Search here..."
-                            value={searchTerm}
-                            onChange={handleSearch}
-                            className="w-full pl-10 pr-4 bg-[#E9EFFA] py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-[1px] focus:ring-common"
-                        />
-                    </div>
                     <div className="flex items-center gap-4 md:shrink-0">
                         <h2 className="text-lg md:text-xl text-title font-medium whitespace-nowrap">Filter by category:</h2>
                         <div className="w-full max-w-sm">
@@ -76,6 +66,17 @@ const ManageDatasetTable = () => {
                             </select>
                         </div>
                     </div>
+                    <div className="relative w-full md:max-w-md">
+                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                        <input
+                            type="text"
+                            placeholder="Search here..."
+                            value={searchTerm}
+                            onChange={handleSearch}
+                            className="w-full pl-10 pr-4 bg-[#E9EFFA] py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-[1px] focus:ring-common"
+                        />
+                    </div>
+                    
                 </div>
 
                 {
