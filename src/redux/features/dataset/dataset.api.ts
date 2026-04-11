@@ -93,6 +93,7 @@ const datasetApi = baseApi.injectEndpoints({
         }),
         deleteCategory: builder.mutation({
             query: (id: number) =>{
+                // console.log(id)
                 return {
                     url: `/administration/categories/${id}/delete/`,
                     method: "DELETE"
