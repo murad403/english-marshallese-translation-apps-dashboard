@@ -42,7 +42,7 @@ const AdminHeader = ({ title, isShowBackButton = false }: { title?: string, isSh
                     <Link href={"/notification"} className='relative group'>
                         <IoNotificationsOutline size={37} />
                         {/* Notification Badge */}
-                        <span className='absolute -top-px right-0.5 bg-red-500 text-white text-xs font-bold rounded-full h-4 w-4 flex items-center justify-center'>
+                        <span className='absolute -top-px right-0.5 bg-red-500 text-white text-[10px] font-bold rounded-full size-5 flex items-center justify-center'>
                             {notification?.data?.total}
                         </span>
                         {/* Tooltip */}
