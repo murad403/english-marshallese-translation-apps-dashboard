@@ -11,7 +11,7 @@ import { useNotificationQuery } from '@/redux/features/notification/notification
 
 const AdminHeader = ({ title, isShowBackButton = false }: { title?: string, isShowBackButton?: boolean }) => {
     const { data } = useGetProfileQuery(undefined);
-    const {data: notification} = useNotificationQuery(undefined);
+    const { data: notification } = useNotificationQuery(undefined);
 
     //  console.log(notification?.data?.total)
     const router = useRouter();
@@ -28,11 +28,11 @@ const AdminHeader = ({ title, isShowBackButton = false }: { title?: string, isSh
                     <div>
                         {
                             title ?
-                                <h1 className='font-medium text-title md:text-heading text-subheading capitalize'>{title}</h1>
+                                <h1 className='font-medium text-title md:text-2xl text-xl capitalize'>{title}</h1>
                                 :
                                 <div>
                                     <p className='text-title text-normal'>Welcome</p>
-                                    <h1 className='font-medium text-title md:text-heading text-subheading capitalize'>{data?.data?.user_profile?.full_name}</h1>
+                                    <h1 className='font-medium text-title md:text-2xl text-xl capitalize'>{data?.data?.user_profile?.full_name}</h1>
                                 </div>
 
                         }
