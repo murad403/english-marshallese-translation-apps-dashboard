@@ -11,7 +11,7 @@ const UserManagementTable = () => {
     const [currentPage, setCurrentPage] = useState<number>(1);
 
     const { data, isLoading } = useGetUsersQuery({ page: currentPage, search: searchTerm });
-    // console.log(data?.data?.page);
+    // console.log(data?.data?.users);
 
     const totalPages = Math.ceil(data?.data?.total / data?.data?.limit);
     // console.log(totalPages);
@@ -71,12 +71,12 @@ const UserManagementTable = () => {
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    {data?.data?.users.map((user: TUser, index: number) => (
+                                                    {data?.data?.users?.map((user: TUser, index: number) => (
                                                         <tr
                                                             key={user?.id}
                                                             className="border-b border-gray-200 hover:bg-gray-50 transition-colors"
                                                         >
-                                                            <td className={`px-6 py-5 md:text-normal text-small text-title bg-main pl-10 ${index === 0 ? "rounded-tl-xl" : ""}`}>{user.user_id}</td>
+                                                            <td className={`px-6 py-5 md:text-normal text-small text-title bg-main pl-10 ${index === 0 ? "rounded-tl-xl" : ""}`}>{user?.user_id}</td>
                                                             <td className="px-6 py-5 md:text-normal text-small text-title bg-main">{user?.user_name}</td>
                                                             <td className="px-6 py-5 md:text-normal text-small text-title bg-main">{user?.user_email}</td>
                                                             <td className="px-6 py-5 md:text-normal text-small text-title bg-main">{user?.user_phone}</td>

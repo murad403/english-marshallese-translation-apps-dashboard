@@ -17,7 +17,7 @@ const ManageDatasetTable = () => {
         page: currentPage,
         category: selectedCategoryId === "all" ? undefined : Number(selectedCategoryId),
     });
-    console.log(searchTerm)
+    // console.log(searchTerm)
     const totalPages = data?.data?.pagination?.total_pages;
     const { data: filterCategoryData } = useGetFilterCategoryQuery(undefined);
     const categoryOptions = (filterCategoryData?.data || []) as TCategory[];
@@ -76,7 +76,7 @@ const ManageDatasetTable = () => {
                             className="w-full pl-10 pr-4 bg-[#E9EFFA] py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-[1px] focus:ring-common"
                         />
                     </div>
-                    
+
                 </div>
 
                 {

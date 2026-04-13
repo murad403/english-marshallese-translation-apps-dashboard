@@ -3,7 +3,7 @@ import { useDashboardStatsQuery } from '@/redux/features/dashboard/dashboard.api
 
 const Stats = () => {
   const {data} = useDashboardStatsQuery(undefined);
-  console.log(data?.data);
+  // console.log(data?.data);
   return (
     <div className='grid grid-cols-1 md:grid-cols-4 gap-4'>
       <div className='bg-main rounded-xl p-5 space-y-1'>
