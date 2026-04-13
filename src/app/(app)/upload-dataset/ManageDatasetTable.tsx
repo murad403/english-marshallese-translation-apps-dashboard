@@ -90,11 +90,11 @@ const ManageDatasetTable = () => {
                                         <table className="w-full rounded-xl">
                                             <thead>
                                                 <tr className="bg-[#E9EFFA] *:py-5">
-                                                    <th className="px-6 text-left md:text-subheading text-normal text-header font-medium">Category</th>
-                                                    <th className="px-6 text-left md:text-subheading text-normal text-header font-medium">English</th>
-                                                    <th className="px-6 text-left md:text-subheading text-normal text-header font-medium">Marshallese</th>
-                                                    <th className="px-6 text-left md:text-subheading text-normal text-header font-medium">Context/Note</th>
-                                                    <th className="px-6 text-left md:text-subheading text-normal text-header font-medium">Action</th>
+                                                    <th className="px-6 text-left md:text-xl text-normal text-header font-medium">Category</th>
+                                                    <th className="px-6 text-left md:text-xl text-normal text-header font-medium">English</th>
+                                                    <th className="px-6 text-left md:text-xl text-normal text-header font-medium">Marshallese</th>
+                                                    <th className="px-6 text-left md:text-xl text-normal text-header font-medium">Context/Note</th>
+                                                    <th className="px-6 text-left md:text-xl text-normal text-header font-medium">Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>

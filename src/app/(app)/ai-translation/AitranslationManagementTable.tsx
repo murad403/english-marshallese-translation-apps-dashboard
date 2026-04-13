@@ -70,14 +70,14 @@ const AiTranslationManagementTable = () => {
                                             <table className="w-full rounded-xl">
                                                 <thead>
                                                     <tr className="bg-[#E9EFFA] *:py-5">
-                                                        <th className="px-6 text-left text-normal md:text-subheading text-header font-medium text-nowrap">User ID</th>
-                                                        <th className="px-6 text-left text-normal md:text-subheading text-header font-medium">Date</th>
-                                                        <th className="px-6 text-left text-normal md:text-subheading text-header font-medium">Status</th>
-                                                        <th className="px-6 text-left text-normal md:text-subheading text-header font-medium">Category</th>
-                                                        <th className="px-6 text-left text-normal md:text-subheading text-header font-medium">English</th>
-                                                        <th className="px-6 text-left text-normal md:text-subheading text-header font-medium">Marshallese</th>
-                                                        <th className="px-6 text-left text-normal md:text-subheading text-header font-medium">Context/Note</th>
-                                                        <th className="px-6 text-left text-normal md:text-subheading text-header font-medium">Action</th>
+                                                        <th className="px-6 text-left text-normal md:text-xl text-header font-medium text-nowrap">User ID</th>
+                                                        <th className="px-6 text-left text-normal md:text-xl text-header font-medium">Date</th>
+                                                        <th className="px-6 text-left text-normal md:text-xl text-header font-medium">Status</th>
+                                                        <th className="px-6 text-left text-normal md:text-xl text-header font-medium">Category</th>
+                                                        <th className="px-6 text-left text-normal md:text-xl text-header font-medium">English</th>
+                                                        <th className="px-6 text-left text-normal md:text-xl text-header font-medium">Marshallese</th>
+                                                        <th className="px-6 text-left text-normal md:text-xl text-header font-medium">Context/Note</th>
+                                                        <th className="px-6 text-left text-normal md:text-xl text-header font-medium">Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>

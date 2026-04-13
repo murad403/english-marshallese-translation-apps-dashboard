@@ -60,14 +60,14 @@ const UserManagementTable = () => {
                                             <table className="w-full rounded-xl">
                                                 <thead>
                                                     <tr className="bg-[#E9EFFA] *:py-5">
-                                                        <th className="px-6 text-left text-normal md:text-subheading text-header font-medium text-nowrap">User ID</th>
-                                                        <th className="px-6 text-left text-normal md:text-subheading text-header font-medium text-nowrap">User Name</th>
-                                                        <th className="px-6 text-left text-normal md:text-subheading text-header font-medium text-nowrap">User Email</th>
-                                                        <th className="px-6 text-left text-normal md:text-subheading text-header font-medium text-nowrap">User Phone</th>
-                                                        <th className="px-6 text-left text-normal md:text-subheading text-header font-medium text-nowrap">Joining Date</th>
-                                                        <th className="px-6 text-left text-normal md:text-subheading text-header font-medium">Status</th>
-                                                        <th className="px-6 text-left text-normal md:text-subheading text-header font-medium">Subscription</th>
-                                                        <th className="px-6 text-left text-normal md:text-subheading text-header font-medium">Action</th>
+                                                        <th className="px-6 text-left text-normal md:text-xl text-header font-medium text-nowrap">ID</th>
+                                                        <th className="px-6 text-left text-normal md:text-xl text-header font-medium text-nowrap">Name</th>
+                                                        <th className="px-6 text-left text-normal md:text-xl text-header font-medium text-nowrap">Email</th>
+                                                        <th className="px-6 text-left text-normal md:text-xl text-header font-medium text-nowrap">Phone</th>
+                                                        <th className="px-6 text-left text-normal md:text-xl text-header font-medium text-nowrap">Joining Date</th>
+                                                        <th className="px-6 text-left text-normal md:text-xl text-header font-medium">Status</th>
+                                                        <th className="px-6 text-left text-normal md:text-xl text-header font-medium">Subscription</th>
+                                                        <th className="px-6 text-left text-normal md:text-xl text-header font-medium">Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
