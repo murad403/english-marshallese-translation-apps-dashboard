@@ -3,7 +3,7 @@ import logo from "@/assets/logo.jpg";
 
 import {
   Sidebar, SidebarContent, SidebarFooter, SidebarGroup,
-  SidebarGroupContent, SidebarGroupLabel, SidebarMenu,
+  SidebarGroupContent, SidebarMenu,
   SidebarMenuButton, SidebarMenuItem, SidebarTrigger
 } from "@/components/ui/sidebar"
 import Image from "next/image"

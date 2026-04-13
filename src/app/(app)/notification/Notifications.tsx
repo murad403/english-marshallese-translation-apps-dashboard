@@ -23,7 +23,7 @@ const Notifications = () => {
                       <IoNotificationsOutline size={25} />
                     </div>
                     <div>
-                      <h3 className='text-header font-medium text-subheading capitalize'>{notification.category}</h3>
+                      <h3 className='text-header font-medium text-xl capitalize'>{notification.category}</h3>
                       <p className='text-title text-normal'>{notification.english_text}</p>
                     </div>
                   </Link>
