@@ -90,7 +90,7 @@ const AdminSidebar = () => {
                             group-data-[collapsible=icon]:w-10
                             group-data-[collapsible=icon]:h-10
                             group-data-[collapsible=icon]:mx-auto
-                            ${isActive ? "bg-common text-main hover:bg-common hover:text-main" : ""}
+                            ${isActive ? "bg-common text-white hover:bg-common hover:text-white" : ""}
                           `}
                           asChild
                         >
